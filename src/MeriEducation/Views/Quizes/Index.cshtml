@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MeriEducation.Models.Quiz>
+
+
+<html>
+<head>
+</head>
+<body>
+    <h2>Quizes by grade level</h2>
+
+    <h1>7th Grade</h1>
+    <ul>
+        @foreach (var listItem in Model)
+        {
+            @if (listItem.grade == 7)
+            {
+                <li>@Html.DisplayFor(modelItem => listItem.name)</li>
+            }
+
+        }
+    </ul>
+
+    <h1>8th Grade</h1>
+    <ul>
+        @foreach (var listItem in Model)
+        {
+            @if (listItem.grade == 8)
+            {
+                <li>@Html.DisplayFor(modelItem => listItem.name)</li>
+            }
+
+        }
+    </ul>
+</body>
+</html>
