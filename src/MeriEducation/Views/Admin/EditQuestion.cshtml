@@ -1,0 +1,53 @@
+﻿@model MeriEducation.Models.Question
+
+<html>
+<head>
+</head>
+<body>
+    <h2>Edit</h2>
+    <hr />
+    <h4>Edit this Question: @Html.DisplayFor(model => model.questionText)</h4>
+
+    @using (Html.BeginForm())
+    {
+
+  
+        @Html.HiddenFor(model => model.QuestionId)
+        @Html.HiddenFor(model => model.quizId)
+
+        <p>
+            @Html.LabelFor(model => model.questionText)
+            @Html.EditorFor(model => model.questionText)
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.answer1)
+            @Html.EditorFor(model => model.answer1)
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.answer2)
+            @Html.EditorFor(model => model.answer2)
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.answer3)
+            @Html.EditorFor(model => model.answer3)
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.answer4)
+            @Html.EditorFor(model => model.answer4)
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.correctAnswer)
+            @Html.EditorFor(model => model.correctAnswer)
+        </p>
+
+        <input type="submit" value="Save" />
+    }
+    <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.quizId })</p>
+
+</body>
+</html>

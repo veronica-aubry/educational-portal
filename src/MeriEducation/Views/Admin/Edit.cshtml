@@ -1,0 +1,30 @@
+﻿@model MeriEducation.Models.Quiz
+
+<html>
+<head>
+</head>
+<body>
+    <h2>Edit</h2>
+    <hr />
+    <h4>Edit this Quiz: @Html.DisplayFor(model => model.name)</h4>
+
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.QuizId)
+
+        <p>
+        @Html.LabelFor(model => model.name)
+        @Html.EditorFor(model => model.name)
+        </p>
+
+        <p>
+        @Html.LabelFor(model => model.grade)
+        @Html.EditorFor(model => model.grade)
+        </p>
+
+        <input type="submit" value="Save" />
+    }
+    <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.QuizId })</p>
+
+</body>
+</html>

@@ -4,13 +4,17 @@
 <hr />
 
 <p>@Html.DisplayNameFor(model => model.name): @Html.DisplayFor(model => model.name)</p>
+<a href=@Url.Action("Edit", "Admin", new { id = Model.QuizId })><span>Edit Quiz Details</span></a>
 
+<br />
+<br />
 
 Questions:
 <br /> <br />
 
 @foreach (var question in Model.Questions)
 {
+    <p><a href=@Url.Action("EditQuestion", "Admin", new { id = question.QuestionId })><span>Edit Question </span></a></p>
     @Html.DisplayFor(model => question.questionText)
     <p>@Html.DisplayFor(model => question.answer1)</p>
     <p>@Html.DisplayFor(model => question.answer2)</p>

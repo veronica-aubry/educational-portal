@@ -13,8 +13,12 @@
         {
             @if (listItem.grade == 7)
             {
-                <li>@Html.DisplayFor(modelItem => listItem.name)
-                       @Html.ActionLink("Details", "Details", new { id = listItem.QuizId })
+                <li>
+                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.name</span></a>
+                    @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
+                    {
+                        <input type="submit" value="Delete" />
+                    }
                 </li>
             }
 
@@ -28,13 +32,17 @@
             @if (listItem.grade == 8)
             {
                 <li>
-                @Html.DisplayFor(modelItem => listItem.name)
-                @Html.ActionLink("Details", "Details", new { id = listItem.QuizId })
+                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.name</span></a>
+                    @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
+                    {
+                        <input type="submit" value="Delete" />
+                    }
                 </li>
             }
 
         }
     </ul>
+   
 
     <h3> Create a Quiz</h3>
     @Html.ActionLink("Create", "Create")

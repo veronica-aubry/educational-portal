@@ -13,6 +13,12 @@ namespace MeriEducation.Controllers
     public class AdminController : Controller
     {
         private MeriEducationContext db = new MeriEducationContext();
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult quizes()
         {
             return View(db.Quizes.ToList());
@@ -22,14 +28,6 @@ namespace MeriEducation.Controllers
         {
             return View();
         }
-
-        //[HttpPost]
-        //public ActionResult Create(Quiz quiz)
-        //{
-        //    db.Quizes.Add(quiz);
-        //    db.SaveChanges();
-        //    return RedirectToAction("quizes");
-        //}
 
         [HttpPost]
         public ActionResult Create(AddQuizViewModel model)
@@ -58,6 +56,47 @@ namespace MeriEducation.Controllers
                 return RedirectToAction("quizes");
 
             }
+        }
+
+        public IActionResult Details(int id)
+        {
+            var thisQuiz = db.Quizes.Include(quizes => quizes.Questions).ToList().FirstOrDefault(quizes => quizes.QuizId == id);
+            return View(thisQuiz);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult Delete(int id)
+        {
+            var thisquiz = db.Quizes.FirstOrDefault(x => x.QuizId == id);
+            db.Quizes.Remove(thisquiz);
+            db.SaveChanges();
+            return RedirectToAction("quizes");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var thisquiz = db.Quizes.FirstOrDefault(quizes => quizes.QuizId == id);
+            return View(thisquiz);
+        }
+        [HttpPost]
+        public ActionResult Edit(Quiz quiz)
+        {
+            db.Entry(quiz).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("quizes");
+        }
+
+        public ActionResult EditQuestion(int id)
+        {
+            var thisquestion = db.Questions.FirstOrDefault(questions => questions.QuestionId == id);
+            return View(thisquestion);
+        }
+        [HttpPost]
+        public ActionResult EditQuestion(Question question)
+        {
+            db.Entry(question).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("quizes");
         }
     }
 }
