@@ -1,10 +1,10 @@
-﻿@model IEnumerable<MeriEducation.Models.Quiz>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<MeriEducation.Models.Quiz>
 
 
-<html>
-<head>
-</head>
-<body>
     <h2>Quizes by grade level</h2>
 
     <h1>7th Grade</h1>
@@ -47,5 +47,5 @@
     <h3> Create a Quiz</h3>
     @Html.ActionLink("Create", "Create")
 
-</body>
-</html>
+    <p>@Html.ActionLink("Back to Admin Portal", "Index")</p>
+

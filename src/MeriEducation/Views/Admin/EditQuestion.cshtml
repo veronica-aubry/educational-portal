@@ -1,9 +1,9 @@
-﻿@model MeriEducation.Models.Question
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<html>
-<head>
-</head>
-<body>
+@model MeriEducation.Models.Question
+
     <h2>Edit</h2>
     <hr />
     <h4>Edit this Question: @Html.DisplayFor(model => model.questionText)</h4>
@@ -48,6 +48,3 @@
         <input type="submit" value="Save" />
     }
     <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.quizId })</p>
-
-</body>
-</html>
