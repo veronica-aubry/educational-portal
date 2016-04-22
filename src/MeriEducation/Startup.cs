@@ -15,7 +15,7 @@ namespace MeriEducation
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
-        public Startup()
+        public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");
@@ -44,10 +44,7 @@ namespace MeriEducation
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseStaticFiles();
         }
 
         // Entry point for the application.

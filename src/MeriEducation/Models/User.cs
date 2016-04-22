@@ -16,6 +16,7 @@ namespace MeriEducation.Models
         public string name { get; set; }
         public int grade { get; set; }
         public int avatarId { get; set; }
+        public virtual Avatar Avatar { get; set; }
         public int points { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MeriEducation.Models;
+using Microsoft.Data.Entity;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,5 +18,12 @@ namespace MeriEducation.Controllers
         {
             return View(db.Quizes.ToList());
         }
+
+        public IActionResult Details(int id)
+        {
+            var thisQuiz = db.Quizes.Include(quizes => quizes.Questions).ToList().FirstOrDefault(quizes => quizes.QuizId == id);
+            return View(thisQuiz);
+        }
+
     }
 }

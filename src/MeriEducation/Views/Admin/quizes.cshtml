@@ -14,7 +14,7 @@
             @if (listItem.grade == 7)
             {
                 <li>@Html.DisplayFor(modelItem => listItem.name)
-                    @Html.ActionLink("Details", "Details", new { id = listItem.QuizId })
+                       @Html.ActionLink("Details", "Details", new { id = listItem.QuizId })
                 </li>
             }
 
@@ -28,12 +28,16 @@
             @if (listItem.grade == 8)
             {
                 <li>
-                    @Html.DisplayFor(modelItem => listItem.name)
-                    @Html.ActionLink("Details", "Details", new { id = listItem.QuizId })
+                @Html.DisplayFor(modelItem => listItem.name)
+                @Html.ActionLink("Details", "Details", new { id = listItem.QuizId })
                 </li>
             }
 
         }
     </ul>
+
+    <h3> Create a Quiz</h3>
+    @Html.ActionLink("Create", "Create")
+
 </body>
 </html>
