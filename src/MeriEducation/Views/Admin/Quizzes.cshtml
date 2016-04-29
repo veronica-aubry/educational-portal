@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model IEnumerable<MeriEducation.Models.Quiz>
+@model IEnumerable<System.Models.Quiz>
 
 
     <h2>Quizes by grade level</h2>
@@ -11,10 +11,10 @@
     <ul>
         @foreach (var listItem in Model)
         {
-            @if (listItem.grade == 7)
+            @if (listItem.Grade == 7)
             {
                 <li>
-                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.name</span></a>
+                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
                     @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
                     {
                         <input type="submit" value="Delete" />
@@ -29,10 +29,10 @@
     <ul>
         @foreach (var listItem in Model)
         {
-            @if (listItem.grade == 8)
+            @if (listItem.Grade == 8)
             {
                 <li>
-                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.name</span></a>
+                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
                     @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
                     {
                         <input type="submit" value="Delete" />

@@ -6,11 +6,12 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
-using MeriEducation.Models;
+using System.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace MeriEducation
+namespace System
 {
     public class Startup
     {
@@ -28,23 +29,31 @@ namespace MeriEducation
 
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<MeriEducationContext>(options =>
+                .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
         }
 
      
         public void Configure(IApplicationBuilder app)
         {
             app.UseIISPlatformHandler();
-
+            app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Index}/{id?}");
             });
 
             app.UseStaticFiles();
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+            });
         }
 
         // Entry point for the application.

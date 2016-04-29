@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
-namespace MeriEducation.Models
+namespace System.Models
 {
-    public class MeriEducationContext: DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Avatar> Avatars { get; set; }
-        public virtual DbSet<Quiz> Quizes { get; set; }
+        public virtual DbSet<Quiz> Quizzes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual new DbSet<ApplicationUser> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

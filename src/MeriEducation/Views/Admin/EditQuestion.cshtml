@@ -6,45 +6,45 @@
 
     <h2>Edit</h2>
     <hr />
-    <h4>Edit this Question: @Html.DisplayFor(model => model.questionText)</h4>
+    <h4>Edit this Question: @Html.DisplayFor(model => model.QuestionText)</h4>
 
     @using (Html.BeginForm())
     {
 
   
         @Html.HiddenFor(model => model.QuestionId)
-        @Html.HiddenFor(model => model.quizId)
+        @Html.HiddenFor(model => model.QuizId)
 
         <p>
-            @Html.LabelFor(model => model.questionText)
-            @Html.EditorFor(model => model.questionText)
+            @Html.LabelFor(model => model.QuestionText)
+            @Html.EditorFor(model => model.QuestionText)
         </p>
 
         <p>
-            @Html.LabelFor(model => model.answer1)
-            @Html.EditorFor(model => model.answer1)
+            @Html.LabelFor(model => model.Answer1)
+            @Html.EditorFor(model => model.Answer1)
         </p>
 
         <p>
-            @Html.LabelFor(model => model.answer2)
-            @Html.EditorFor(model => model.answer2)
+            @Html.LabelFor(model => model.Answer2)
+            @Html.EditorFor(model => model.Answer2)
         </p>
 
         <p>
-            @Html.LabelFor(model => model.answer3)
-            @Html.EditorFor(model => model.answer3)
+            @Html.LabelFor(model => model.Answer3)
+            @Html.EditorFor(model => model.Answer3)
         </p>
 
         <p>
-            @Html.LabelFor(model => model.answer4)
-            @Html.EditorFor(model => model.answer4)
+            @Html.LabelFor(model => model.Answer4)
+            @Html.EditorFor(model => model.Answer4)
         </p>
 
         <p>
-            @Html.LabelFor(model => model.correctAnswer)
-            @Html.EditorFor(model => model.correctAnswer)
+            @Html.LabelFor(model => model.CorrectAnswer)
+            @Html.EditorFor(model => model.CorrectAnswer)
         </p>
 
         <input type="submit" value="Save" />
     }
-    <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.quizId })</p>
+    <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.QuizId })</p>

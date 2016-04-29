@@ -2,24 +2,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model MeriEducation.Models.Quiz
+@model System.Models.Quiz
 
     <h2>Edit</h2>
     <hr />
-    <h4>Edit this Quiz: @Html.DisplayFor(model => model.name)</h4>
+    <h4>Edit this Quiz: @Html.DisplayFor(model => model.Name)</h4>
 
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(model => model.QuizId)
 
         <p>
-        @Html.LabelFor(model => model.name)
-        @Html.EditorFor(model => model.name)
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name)
         </p>
 
         <p>
-        @Html.LabelFor(model => model.grade)
-        @Html.EditorFor(model => model.grade)
+        @Html.LabelFor(model => model.Grade)
+        @Html.EditorFor(model => model.Grade)
         </p>
 
         <input type="submit" value="Save" />

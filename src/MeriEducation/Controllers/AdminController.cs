@@ -3,25 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using MeriEducation.Models;
+using System.Models;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace MeriEducation.Controllers
+namespace System.Controllers
 {
     public class AdminController : Controller
     {
-        private MeriEducationContext db = new MeriEducationContext();
+        private readonly ApplicationDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IActionResult Index()
+        public AdminController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext db)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _db = db;
+        }
+
+
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.FindByIdAsync(User.GetUserId());
+            ViewBag.User = user;
             return View();
         }
 
-        public IActionResult quizes()
+        public async Task<IActionResult> Quizzes()
         {
-            return View(db.Quizes.ToList());
+            var user = await _userManager.FindByIdAsync(User.GetUserId());
+            ViewBag.User = user;
+            return View(_db.Quizzes.ToList());
         }
 
         public ActionResult Create()
@@ -34,69 +50,69 @@ namespace MeriEducation.Controllers
         {
             var quiz = new Quiz
             {
-                name = model.name,
-                grade = model.grade
+                Name = model.Name,
+                Grade = model.Grade
             };
 
             var question = new Question
             {
-                questionText = model.questionText,
-                answer1 = model.answer1,
-                answer2 = model.answer2,
-                answer3 = model.answer3,
-                answer4 = model.answer4,
-                correctAnswer = model.correctAnswer
+                QuestionText = model.QuestionText,
+                Answer1 = model.Answer1,
+                Answer2 = model.Answer2,
+                Answer3 = model.Answer3,
+                Answer4 = model.Answer4,
+                CorrectAnswer = model.CorrectAnswer
             };
 
             {
-                db.Quizes.Add(quiz);
-                question.quizId = quiz.QuizId;
-                db.Questions.Add(question);
-                db.SaveChanges();
-                return RedirectToAction("quizes");
+                _db.Quizzes.Add(quiz);
+                question.QuizId = quiz.QuizId;
+                _db.Questions.Add(question);
+                _db.SaveChanges();
+                return RedirectToAction("Quizzes");
 
             }
         }
 
         public IActionResult Details(int id)
         {
-            var thisQuiz = db.Quizes.Include(quizes => quizes.Questions).ToList().FirstOrDefault(quizes => quizes.QuizId == id);
+            var thisQuiz = _db.Quizzes.Include(quizes => quizes.Questions).ToList().FirstOrDefault(quizes => quizes.QuizId == id);
             return View(thisQuiz);
         }
 
         [HttpPost, ActionName("Delete")]
         public IActionResult Delete(int id)
         {
-            var thisquiz = db.Quizes.FirstOrDefault(x => x.QuizId == id);
-            db.Quizes.Remove(thisquiz);
-            db.SaveChanges();
-            return RedirectToAction("quizes");
+            var thisquiz = _db.Quizzes.FirstOrDefault(x => x.QuizId == id);
+            _db.Quizzes.Remove(thisquiz);
+            _db.SaveChanges();
+            return RedirectToAction("Quizzes");
         }
 
         public ActionResult Edit(int id)
         {
-            var thisquiz = db.Quizes.FirstOrDefault(quizes => quizes.QuizId == id);
+            var thisquiz = _db.Quizzes.FirstOrDefault(quizes => quizes.QuizId == id);
             return View(thisquiz);
         }
         [HttpPost]
         public ActionResult Edit(Quiz quiz)
         {
-            db.Entry(quiz).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("quizes");
+            _db.Entry(quiz).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Quizzes");
         }
 
         public ActionResult EditQuestion(int id)
         {
-            var thisquestion = db.Questions.FirstOrDefault(questions => questions.QuestionId == id);
+            var thisquestion = _db.Questions.FirstOrDefault(questions => questions.QuestionId == id);
             return View(thisquestion);
         }
         [HttpPost]
         public ActionResult EditQuestion(Question question)
         {
-            db.Entry(question).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("quizes");
+            _db.Entry(question).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Quizzes");
         }
     }
 }

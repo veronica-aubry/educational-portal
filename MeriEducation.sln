@@ -12,6 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MeriEducation", "src\MeriEducation\MeriEducation.xproj", "{7D509F9A-5276-490F-A6D3-DB7ACDA8B2ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AC5E13E5-8828-40A6-9C40-CDE8CAE2BF8E}"
+	ProjectSection(SolutionItems) = preProject
+		xunit.runner.json = xunit.runner.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MeriEducation.Tests", "MeriEducation.Tests\MeriEducation.Tests.xproj", "{6945BB39-B10A-4A2A-ACA0-C68A275A9C56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +29,16 @@ Global
 		{7D509F9A-5276-490F-A6D3-DB7ACDA8B2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D509F9A-5276-490F-A6D3-DB7ACDA8B2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D509F9A-5276-490F-A6D3-DB7ACDA8B2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6945BB39-B10A-4A2A-ACA0-C68A275A9C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6945BB39-B10A-4A2A-ACA0-C68A275A9C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6945BB39-B10A-4A2A-ACA0-C68A275A9C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6945BB39-B10A-4A2A-ACA0-C68A275A9C56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7D509F9A-5276-490F-A6D3-DB7ACDA8B2ED} = {44BD5142-654F-41FF-B404-E13B89699273}
+		{6945BB39-B10A-4A2A-ACA0-C68A275A9C56} = {AC5E13E5-8828-40A6-9C40-CDE8CAE2BF8E}
 	EndGlobalSection
 EndGlobal

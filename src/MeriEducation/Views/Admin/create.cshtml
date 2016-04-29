@@ -14,12 +14,12 @@
     {
             <p>
                 Quiz Name
-                @Html.TextBoxFor(model => model.name)
+                @Html.TextBoxFor(model => model.Name)
             </p>
 
             <p>
                 Quiz Grade
-                @Html.TextBoxFor(model => model.grade)
+                @Html.TextBoxFor(model => model.Grade)
             </p>
 
             <button type="button" onclick="addQuestion();">"Add a Question"</button>
@@ -29,32 +29,32 @@
 
                     <p>
                         Question Text
-                        @Html.TextBoxFor(model => model.questionText)
+                        @Html.TextBoxFor(model => model.QuestionText)
                     </p>
 
                     <p>
                         Question Answer Option 1
-                        @Html.TextBoxFor(model => model.answer1)
+                        @Html.TextBoxFor(model => model.Answer1)
                     </p>
 
                     <p>
                         Question Answer Option 2
-                        @Html.TextBoxFor(model => model.answer2)
+                        @Html.TextBoxFor(model => model.Answer2)
                     </p>
 
                     <p>
                         Question Answer Option 3
-                        @Html.TextBoxFor(model => model.answer3)
+                        @Html.TextBoxFor(model => model.Answer3)
                     </p>
 
                     <p>
                         Question Answer Option 4
-                        @Html.TextBoxFor(model => model.answer4)
+                        @Html.TextBoxFor(model => model.Answer4)
                     </p>
 
                     <p>
                         Question Correct Answer
-                        @Html.TextBoxFor(model => model.correctAnswer)
+                        @Html.TextBoxFor(model => model.CorrectAnswer)
                     </p>
 
                     </div>
@@ -64,4 +64,4 @@
 
         }
 
-    <p>@Html.ActionLink("Back to quiz list", "quizes")</p>
+    <p>@Html.ActionLink("Back to quiz list", "Quizzes")</p>
