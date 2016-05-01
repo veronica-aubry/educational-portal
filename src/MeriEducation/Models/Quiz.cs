@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace System.Models
+namespace MeriEducation.Models
 {
     [Table("Quizzes")]
     public class Quiz

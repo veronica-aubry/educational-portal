@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Data.Entity;
 using System.Security.Principal;
 
-namespace System.Models
+namespace MeriEducation.Models
 {
     public class ApplicationUser : IdentityUser
     {

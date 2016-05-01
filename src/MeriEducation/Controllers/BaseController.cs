@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Models;
-using System.ViewModels;
+using MeriEducation.Models;
+using MeriEducation.ViewModels;
 using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace System.Controllers
+namespace MeriEducation.Controllers
 {
     public class BaseController : Controller
     {

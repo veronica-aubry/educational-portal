@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using System.Models;
+using MeriEducation.Models;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;

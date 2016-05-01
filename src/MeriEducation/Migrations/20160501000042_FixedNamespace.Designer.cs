@@ -3,13 +3,13 @@ using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
-using System.Models;
+using MeriEducation.Models;
 
 namespace System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160429161537_Initial")]
-    partial class Initial
+    [Migration("20160501000042_FixedNamespace")]
+    partial class FixedNamespace
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

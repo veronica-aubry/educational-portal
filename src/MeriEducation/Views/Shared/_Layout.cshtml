@@ -19,6 +19,11 @@
                     <li><a href=@Url.Action("Index", "Quiz")><span>Quizzes</span></a></li>
                     <li role="presentation"><a href="#">Quizzes</a></li>
                     <li role="presentation"><a href="#">Profile</a></li>
+                    <li>@using (Html.BeginForm("LogOff", "Account"))
+                        {
+                            <input type="submit" class="btn btn-default" value="Log out" />
+                        }
+                    </li>
                 </ul>
             </div>
 
@@ -36,8 +41,14 @@
                 <ul class="nav nav-pills">
 
                     <li><a href=@Url.Action("Quizzes", "Admin")><span>Quizzes</span></a></li>
-                    <li role="presentation"><a href="#">Quizzes</a></li>
                     <li role="presentation"><a href="#">Profile</a></li>
+                    <li>
+                        @using (Html.BeginForm("LogOff", "Account"))
+                    {
+                        <input type="submit" class="btn btn-default" value="Log out" />
+                    }
+                </li>
+
                 </ul>
             </div>
 
@@ -46,10 +57,6 @@
 
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" >
-           <div class="jumbotron">
-             <h1>MeriEducation Portal</h1>
-           </div>
-
            <div class="container main">
                @RenderBody()
            </div>

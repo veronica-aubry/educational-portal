@@ -7,14 +7,14 @@
 
 @model RegisterViewModel
 
-<h2>Register a new Student User</h2>
-<p>@Html.ActionLink("Are you a tutor? Register Here.", "RegisterTeacher")</p>
+<h2>Register a new Tutor User</h2>
+<p>@Html.ActionLink("Are you a student? Register Here.", "Register")</p>
 <hr />
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+@using (Html.BeginForm("RegisterTeacher", "Account", FormMethod.Post))
 {
-   <p>@Html.LabelFor(m => m.Email)
+    <p>@Html.LabelFor(m => m.Email)
     @Html.TextBoxFor(m => m.Email)</p>
-    
+
     <p>@Html.LabelFor(m => m.FirstName)
     @Html.TextBoxFor(m => m.FirstName)</p>
 

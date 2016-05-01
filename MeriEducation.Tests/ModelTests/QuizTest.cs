@@ -1,4 +1,4 @@
-﻿using System.Models;
+﻿using MeriEducation.Models;
 using Xunit;
 
 namespace MeriEDucation.Tests

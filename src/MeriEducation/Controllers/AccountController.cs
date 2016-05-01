@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Models;
-using System.ViewModels;
+using MeriEducation.Models;
+using MeriEducation.ViewModels;
 using System.Security.Claims;
 
-namespace System.Controllers
+namespace MeriEducation.Controllers
 {
     public class AccountController : Controller
     {
@@ -41,6 +41,28 @@ namespace System.Controllers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Student");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public IActionResult RegisterTeacher()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterTeacher(RegisterViewModel model)
+        {
+            var user = new ApplicationUser { UserName = model.Email, FirstName = model.FirstName, LastName = model.LastName};
+
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Teacher");
                 return RedirectToAction("Index");
             }
             else

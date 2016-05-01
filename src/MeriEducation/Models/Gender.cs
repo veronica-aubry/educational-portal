@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace MeriEducation.Models
 {
-    [Table("Avatars")]
-    public class Avatar
+    [Table("Genders")]
+    public class Gender
     {
         [Key]
-        public int AvatarId { get; set; }
         public int GenderId { get; set; }
-        public int SkinId { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public string Name { get; set; }
     }
 }
