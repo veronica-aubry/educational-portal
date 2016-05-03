@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace System.Controllers
+namespace MeriEducation.Controllers
 {
     public class AdminController : Controller
     {
@@ -53,26 +53,18 @@ namespace System.Controllers
                 Name = model.Name,
                 Grade = model.Grade
             };
-
-            var question = new Question
-            {
-                QuestionText = model.QuestionText,
-                Answer1 = model.Answer1,
-                Answer2 = model.Answer2,
-                Answer3 = model.Answer3,
-                Answer4 = model.Answer4,
-                CorrectAnswer = model.CorrectAnswer
-            };
-
-            {
-                _db.Quizzes.Add(quiz);
-                question.QuizId = quiz.QuizId;
-                _db.Questions.Add(question);
-                _db.SaveChanges();
-                return RedirectToAction("Quizzes");
+            _db.Quizzes.Add(quiz);
+            _db.SaveChanges();
+            return RedirectToAction("AddQuestion", new { id = quiz.QuizId });
 
             }
+
+        public ActionResult AddQuestion(int id)
+        {
+            var thisQuiz = _db.Quizzes.Include(quizes => quizes.Questions).ToList().FirstOrDefault(quizes => quizes.QuizId == id);
+            return View(thisQuiz);
         }
+
 
         public IActionResult Details(int id)
         {
@@ -113,6 +105,33 @@ namespace System.Controllers
             _db.Entry(question).State = EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction("Quizzes");
+        }
+
+        [HttpPost]
+        public IActionResult NewQuiz(string newName, int newGrade)
+        {
+            Quiz newQuiz = new Quiz(newName, newGrade);
+            _db.Quizzes.Add(newQuiz);
+            _db.SaveChanges();
+            return Json(newQuiz);
+        }
+
+
+        [HttpPost]
+        public IActionResult NewQuestion(string newQuestionText, string newAnswer1, string newAnswer2, string newAnswer3, string newAnswer4, string newCorrectAnswer, int QuizId)
+        {
+            Question newQuestion = new Question(newQuestionText, newAnswer1, newAnswer2, newAnswer3, newAnswer4, newCorrectAnswer, QuizId);
+            Console.WriteLine(newQuestionText);
+            Console.WriteLine(newAnswer1);
+            Console.WriteLine(newAnswer2);
+            Console.WriteLine(newAnswer3);
+            Console.WriteLine(newAnswer4);
+            Console.WriteLine(newCorrectAnswer);
+            Console.WriteLine(QuizId);
+     
+            _db.Questions.Add(newQuestion);
+            _db.SaveChanges();
+            return Json(newQuestion);
         }
     }
 }

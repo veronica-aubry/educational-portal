@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+@model MeriEducation.Models.Quiz
+
+
+<h3>@Model.Name</h3>
+
+@Html.Partial("DisplayAddQuestion", Model)
+
+
+<div id="questions"></div>

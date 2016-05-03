@@ -1,0 +1,43 @@
+﻿
+@model MeriEducation.Models.Quiz
+
+<script type="text/javascript">
+  $(document).ready(function () {
+      $('.new-question').submit(function (event) {
+          event.preventDefault();
+          $.ajax({
+              url: '@Url.Action("NewQuestion")',
+              type: 'POST',
+              dataType: 'json',
+              data: $(this).serialize(),
+              success: function (result) {
+                  var resultMessage = '</hr><h3>' + result.QuestionText + '</h3><br>(A) ' + result.Answer1 + '<br>(B) ' + result.Answer2 + '<br>(C) ' + result.Answer3 + '<br>(D) ' + result.Answer4;
+                  $('#questions').append(resultMessage);
+              }
+          });
+      });
+  });
+
+</script>
+
+    <form action="NewQuestion" class="new-question">
+        <label for="newQuestionText">Question Text: </label>
+        <input type="text" name="newQuestionText" />
+        <br />
+        <label for="newAnswer1">Option 1: </label>
+        <input type="text" name="newAnswer1" />
+        <br />
+        <label for="newAnswer2">Option 2: </label>
+        <input type="text" name="newAnswer2" />
+        <br />
+        <label for="newAnswer3">Option 3: </label>
+        <input type="text" name="newAnswer3" />
+        <br />
+        <label for="newAnswer4">Option 4: </label>
+        <input type="text" name="newAnswer4" />
+        <br />
+        <label for="newCorrectAnswer">Correct Answer: </label>
+        <input type="text" name="newCorrectAnswer" />
+        <input hidden name="QuizId" value=@Model.QuizId type="number" />
+        <button type="submit">Submit</button>
+    </form>

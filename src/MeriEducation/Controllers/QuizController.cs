@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace System.Controllers
+namespace MeriEducation.Controllers
 {
     public class QuizController : Controller
     {

@@ -15,5 +15,16 @@ namespace MeriEducation.Models
         public int Grade { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
-    }
-}
+
+
+        public Quiz(string name, int grade, int quizid = 0)
+        {
+            Name = name;
+            Grade = grade;
+            QuizId = quizid;
+        }
+
+        public Quiz() { }
+        }
+ }
+

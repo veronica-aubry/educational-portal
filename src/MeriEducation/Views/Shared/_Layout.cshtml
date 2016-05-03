@@ -27,12 +27,12 @@
                 </ul>
             </div>
 
-            <div class="col-sm-2 col-md-2 sidebar">
+            @*<div class="col-sm-2 col-md-2 sidebar">
             <center>
                 <h3>@(ViewBag.User.FirstName)</h3>
                 <p>Points: @(ViewBag.User.Points)</p>
             </center>
-            </div>
+            </div>*@
         }
 
         @if (User.IsSignedIn() && User.IsInRole("Teacher"))
