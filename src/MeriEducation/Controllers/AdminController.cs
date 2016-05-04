@@ -86,13 +86,6 @@ namespace MeriEducation.Controllers
             var thisquiz = _db.Quizzes.FirstOrDefault(quizes => quizes.QuizId == id);
             return View(thisquiz);
         }
-        [HttpPost]
-        public ActionResult Edit(Quiz quiz)
-        {
-            _db.Entry(quiz).State = EntityState.Modified;
-            _db.SaveChanges();
-            return RedirectToAction("Quizzes");
-        }
 
         public ActionResult EditQuestion(int id)
         {
@@ -120,18 +113,22 @@ namespace MeriEducation.Controllers
         [HttpPost]
         public IActionResult NewQuestion(string newQuestionText, string newAnswer1, string newAnswer2, string newAnswer3, string newAnswer4, string newCorrectAnswer, int QuizId)
         {
-            Question newQuestion = new Question(newQuestionText, newAnswer1, newAnswer2, newAnswer3, newAnswer4, newCorrectAnswer, QuizId);
-            Console.WriteLine(newQuestionText);
-            Console.WriteLine(newAnswer1);
-            Console.WriteLine(newAnswer2);
-            Console.WriteLine(newAnswer3);
-            Console.WriteLine(newAnswer4);
-            Console.WriteLine(newCorrectAnswer);
-            Console.WriteLine(QuizId);
-     
+            Question newQuestion = new Question(newQuestionText, newAnswer1, newAnswer2, newAnswer3, newAnswer4, newCorrectAnswer, QuizId);     
             _db.Questions.Add(newQuestion);
             _db.SaveChanges();
             return Json(newQuestion);
+        }
+
+        [HttpPost]
+        public IActionResult QuizEdit(string editName, int editGrade, int quizId)
+        {
+            var thisQuiz = _db.Quizzes.FirstOrDefault(quizzes => quizzes.QuizId == quizId);
+            Console.WriteLine(thisQuiz.QuizId);
+            thisQuiz.Name = editName;
+            thisQuiz.Grade = editGrade;
+            _db.Entry(thisQuiz).State = EntityState.Modified;
+            _db.SaveChanges();
+            return Json(thisQuiz);
         }
     }
 }

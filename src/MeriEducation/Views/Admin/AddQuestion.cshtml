@@ -1,11 +1,29 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript">
+  var url = '@Url.Action("Edit", new { id = @Model.QuizId })';
+  $(document).ready(function () {
+    $('.edit').click(function () {
+        $.ajax({
+            type: 'GET',
+            dataType: 'html',
+            url: url,
+            success: function (result) {
+                $('.title-display').append(result);
+            }
+        });
+    });
+  });
+
+</script>
  
 @model MeriEducation.Models.Quiz
 
-
-<h3>@Model.Name</h3>
+<div class="title-display">
+<h3>@Model.Name</h3><span class="edit">Edit</span>
+</div>
 
 @Html.Partial("DisplayAddQuestion", Model)
 

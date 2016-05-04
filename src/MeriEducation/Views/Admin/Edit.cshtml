@@ -1,28 +1,35 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+﻿
 @model MeriEducation.Models.Quiz
 
-    <h2>Edit</h2>
-    <hr />
-    <h4>Edit this Quiz: @Html.DisplayFor(model => model.Name)</h4>
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('.quiz-edit').submit(function (event) {
+          event.preventDefault();
+          $.ajax({
+              url: '@Url.Action("QuizEdit")',
+              type: 'POST',
+              dataType: 'json',
+              data: $(this).serialize(),
+              success: function (result) {
+                  var resultMessage = '<h3>' + result.Name + '</h3><span class="edit">Edit</span>';
+                  $('.title-display').append(resultMessage);
+                  $('.quiz-edit').remove();
 
-    @using (Html.BeginForm())
-    {
-        @Html.HiddenFor(model => model.QuizId)
+              }
+          });
+      });
+  });
 
-        <p>
-        @Html.LabelFor(model => model.Name)
-        @Html.EditorFor(model => model.Name)
-        </p>
+</script>
 
-        <p>
-        @Html.LabelFor(model => model.Grade)
-        @Html.EditorFor(model => model.Grade)
-        </p>
+ <form action="QuizEdit" class="quiz-edit">
+    <label for="editName">Name: </label>
+    <input type="text" name="editName" />
+    <input hidden type="number" name="quizId" value="@Model.QuizId" />
+    <label for="editGrade">Grade: </label>
+    <input type="number" name="editGrade" />
+    <button type="submit">Save</button>
+</form>
 
-        <input type="submit" value="Save" />
-    }
-    <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.QuizId })</p>
+ 
 
