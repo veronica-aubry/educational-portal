@@ -5,16 +5,17 @@
 <script type="text/javascript">
   var url = '@Url.Action("Edit", new { id = @Model.QuizId })';
   $(document).ready(function () {
-    $('.edit').click(function () {
+      $('.edit').click(function () {
         $.ajax({
             type: 'GET',
             dataType: 'html',
             url: url,
             success: function (result) {
-                $('.title-display').append(result);
+                $('.title-display').hide();
+                $(result).insertAfter(".title-display");
             }
         });
-    });
+      });
   });
 
 </script>
@@ -22,10 +23,20 @@
 @model MeriEducation.Models.Quiz
 
 <div class="title-display">
-<h3>@Model.Name</h3><span class="edit">Edit</span>
+<h3>
+    <span class="name">@Model.Name</span>
+</h3>
+    <span class="edit">Edit</span>
 </div>
 
 @Html.Partial("DisplayAddQuestion", Model)
 
 
-<div id="questions"></div>
+<div id="questions">
+
+    @foreach (var question in Model.Questions)
+    {
+        @Html.Partial("DisplayQuestion", question)
+    }
+
+  </div>

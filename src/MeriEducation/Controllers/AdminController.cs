@@ -92,12 +92,21 @@ namespace MeriEducation.Controllers
             var thisquestion = _db.Questions.FirstOrDefault(questions => questions.QuestionId == id);
             return View(thisquestion);
         }
+
         [HttpPost]
-        public ActionResult EditQuestion(Question question)
+        public IActionResult QuestionEdit(string newQuestionText, string newAnswer1, string newAnswer2, string newAnswer3, string newAnswer4, string newCorrectAnswer, int quizId, int questionId)
         {
-            _db.Entry(question).State = EntityState.Modified;
+            var thisQuestion = _db.Questions.FirstOrDefault(questions => questions.QuestionId == questionId);
+            thisQuestion.QuestionText = newQuestionText;
+            thisQuestion.Answer1 = newAnswer1;
+            thisQuestion.Answer2 = newAnswer2;
+            thisQuestion.Answer3 = newAnswer3;
+            thisQuestion.Answer4 = newAnswer4;
+            thisQuestion.CorrectAnswer = newCorrectAnswer;
+            thisQuestion.QuizId = quizId; 
+            _db.Entry(thisQuestion).State = EntityState.Modified;
             _db.SaveChanges();
-            return RedirectToAction("Quizzes");
+            return Json(thisQuestion);
         }
 
         [HttpPost]

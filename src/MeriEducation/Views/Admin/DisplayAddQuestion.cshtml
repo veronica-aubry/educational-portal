@@ -1,24 +1,20 @@
 ﻿
 @model MeriEducation.Models.Quiz
 
-<script type="text/javascript">
+<script>
   $(document).ready(function () {
       $('.new-question').submit(function (event) {
           event.preventDefault();
           $.ajax({
               url: '@Url.Action("NewQuestion")',
-              type: 'POST',
-              dataType: 'json',
-              data: $(this).serialize(),
-              success: function (result) {
-                  var resultMessage = '</hr><h3>' + result.QuestionText + '</h3><br>(A) ' + result.Answer1 + '<br>(B) ' + result.Answer2 + '<br>(C) ' + result.Answer3 + '<br>(D) ' + result.Answer4;
-                  $('#questions').append(resultMessage);
-              }
-          });
+            type: 'POST',
+            dataType: 'json',
+            data: $(this).serialize(),
+         });
       });
   });
-
 </script>
+
 
     <form action="NewQuestion" class="new-question">
         <label for="newQuestionText">Question Text: </label>
