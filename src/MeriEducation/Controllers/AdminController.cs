@@ -93,6 +93,13 @@ namespace MeriEducation.Controllers
             return View(thisquestion);
         }
 
+
+        public IActionResult DisplayAllQuestions(int id)
+        {
+            var thisquiz = _db.Quizzes.FirstOrDefault(quizes => quizes.QuizId == id);
+            return View(thisquiz);
+        }
+
         [HttpPost]
         public IActionResult QuestionEdit(string newQuestionText, string newAnswer1, string newAnswer2, string newAnswer3, string newAnswer4, string newCorrectAnswer, int quizId, int questionId)
         {

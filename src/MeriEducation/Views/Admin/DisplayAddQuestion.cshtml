@@ -10,6 +10,10 @@
             type: 'POST',
             dataType: 'json',
             data: $(this).serialize(),
+            success: function (result) {
+                $('.new-question').remove();
+                location.reload();
+            }
          });
       });
   });

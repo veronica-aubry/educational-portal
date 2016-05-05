@@ -34,9 +34,6 @@
 
 <div id="questions">
 
-    @foreach (var question in Model.Questions)
-    {
-        @Html.Partial("DisplayQuestion", question)
-    }
+@Html.Partial("DisplayAllQuestions", Model)
 
-  </div>
+ </div>

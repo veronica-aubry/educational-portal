@@ -2,25 +2,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model MeriEducation.Models.Quiz
+@{
+    int i = 0;
+}
 
-<h2>Quiz Details</h2>
+<script>
+    $(document).ready(function () {
+        $('.next').click(function () {
+            var quizid = @Model[(i)].QuizId;
+            var questionid = @(@i+1);
+            var dataToSend = {
+                quizId: quizid,
+                questionId: questionid
+            }
+            if (@i <= @Model.Count()) {
+                $.ajax({
+                    url: '@Url.Action("QuestionTake")',
+                    type: 'POST',
+                    data: JSON.stringify(dataToSend),
+                    dataType: 'html',
+                    success: function (result) {
+                        $('.question').html(result);
+                     }
+                });
+            };
+        });
+    });
+</script>
+
+
+@model IList<MeriEducation.Models.Question>
+
+
+<h2>Quiz</h2>
 <hr />
 
-<p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
+<div class="question">
+@Html.Partial("QuestionTake", Model[0])
+</div>
+<span class="next">NEXT</span>
 
+@*<div class="question">
+    @Model[0].QuestionText
+</div>*@
 
-Questions:
-<br /> <br />
+ <br />
 
-@foreach (var question in Model.Questions)
-{
-    @Html.DisplayFor(model => question.QuestionText)
-    <p>@Html.DisplayFor(model => question.Answer1)</p>
-    <p>@Html.DisplayFor(model => question.Answer2)</p>
-    <p>@Html.DisplayFor(model => question.Answer3)</p>
-    <p>@Html.DisplayFor(model => question.Answer4)</p>
-
-}
 
 <p>@Html.ActionLink("Back to Quizes", "quizzes")</p>
