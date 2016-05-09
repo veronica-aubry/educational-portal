@@ -13,14 +13,16 @@ namespace MeriEducation.Models
         [Key]
         public int CompletedQuizId { get; set; }
         public int QuizId { get; set; }
+        public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual Quiz Quiz { get; set; }
         public virtual ICollection<CompletedQuestion> CompletedQuestions { get; set; }
 
 
-        public CompletedQuiz(int quizid, int completedquizid = 0)
+        public CompletedQuiz(int quizid, string userId,  int completedquizid = 0)
         {
             QuizId = quizid;
+            UserId = userId;
             CompletedQuizId = completedquizid;
         }
 

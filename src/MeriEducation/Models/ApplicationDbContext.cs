@@ -12,6 +12,8 @@ namespace MeriEducation.Models
         public virtual DbSet<Avatar> Avatars { get; set; }
         public virtual DbSet<Quiz> Quizzes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<CompletedQuestion> CompletedQuestions { get; set; }
+        public virtual DbSet<CompletedQuiz> CompletedQuizzes { get; set; }
         public virtual new DbSet<ApplicationUser> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

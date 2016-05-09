@@ -127,6 +127,31 @@ namespace MeriEducation.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
+                name: "CompletedQuizzes",
+                columns: table => new
+                {
+                    CompletedQuizId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    QuizId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompletedQuiz", x => x.CompletedQuizId);
+                    table.ForeignKey(
+                        name: "FK_CompletedQuiz_Quiz_QuizId",
+                        column: x => x.QuizId,
+                        principalTable: "Quizzes",
+                        principalColumn: "QuizId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CompletedQuiz_ApplicationUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -188,6 +213,34 @@ namespace MeriEducation.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+            migrationBuilder.CreateTable(
+                name: "CompletedQuestions",
+                columns: table => new
+                {
+                    CompletedQuestionId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompletedQuizId = table.Column<int>(nullable: false),
+                    CorrectAnswer = table.Column<string>(nullable: true),
+                    QuestionAnswer = table.Column<string>(nullable: true),
+                    QuestionId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompletedQuestion", x => x.CompletedQuestionId);
+                    table.ForeignKey(
+                        name: "FK_CompletedQuestion_CompletedQuiz_CompletedQuizId",
+                        column: x => x.CompletedQuizId,
+                        principalTable: "CompletedQuizzes",
+                        principalColumn: "CompletedQuizId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CompletedQuestion_ApplicationUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
@@ -204,13 +257,15 @@ namespace MeriEducation.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable("CompletedQuestions");
             migrationBuilder.DropTable("Questions");
             migrationBuilder.DropTable("AspNetRoleClaims");
             migrationBuilder.DropTable("AspNetUserClaims");
             migrationBuilder.DropTable("AspNetUserLogins");
             migrationBuilder.DropTable("AspNetUserRoles");
-            migrationBuilder.DropTable("Quizzes");
+            migrationBuilder.DropTable("CompletedQuizzes");
             migrationBuilder.DropTable("AspNetRoles");
+            migrationBuilder.DropTable("Quizzes");
             migrationBuilder.DropTable("AspNetUsers");
             migrationBuilder.DropTable("Avatars");
         }

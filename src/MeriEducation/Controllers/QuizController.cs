@@ -39,6 +39,9 @@ namespace MeriEducation.Controllers
             ViewBag.User = user;
             var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).FirstOrDefault(quizzes => quizzes.QuizId == id);
             var questions = thisQuiz.Questions.ToList();
+            CompletedQuiz newCompletedQuiz = new CompletedQuiz(id, user.Id);
+            _db.CompletedQuizzes.Add(newCompletedQuiz);
+            _db.SaveChanges();
             return View(questions);
         }
 
@@ -48,6 +51,19 @@ namespace MeriEducation.Controllers
             var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).FirstOrDefault(quizzes => quizzes.QuizId == quizId);
             var questions = thisQuiz.Questions.ToList();
             return View(questions[questionId]);
+        }
+
+        public IActionResult QuestionAnswer(string questionAnswer, int questionId)
+        {
+            Console.WriteLine(questionId);
+            Console.WriteLine(questionAnswer);
+            var user = User.GetUserId();
+            var thisQuestion = _db.Questions.Include(questions => questions.Quiz).FirstOrDefault(questions => questions.QuestionId == questionId);
+            var thisQuiz = _db.CompletedQuizzes.FirstOrDefault(quizzes => quizzes.UserId == user && quizzes.QuizId == thisQuestion.QuizId);
+            CompletedQuestion newCompletedQuestion = new CompletedQuestion(thisQuiz.CompletedQuizId, user, thisQuestion.QuestionId, questionAnswer, thisQuestion.CorrectAnswer);
+            _db.CompletedQuestions.Add(newCompletedQuestion);
+            _db.SaveChanges();
+            return Json(newCompletedQuestion.QuestionAnswer);
         }
     }
 }
