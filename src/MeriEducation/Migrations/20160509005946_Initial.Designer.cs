@@ -5,11 +5,11 @@ using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
 using MeriEducation.Models;
 
-namespace System.Migrations
+namespace MeriEducation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160501000042_FixedNamespace")]
-    partial class FixedNamespace
+    [Migration("20160509005946_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,40 @@ namespace System.Migrations
                     b.HasKey("AvatarId");
 
                     b.HasAnnotation("Relational:TableName", "Avatars");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.CompletedQuestion", b =>
+                {
+                    b.Property<int>("CompletedQuestionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CompletedQuizId");
+
+                    b.Property<string>("CorrectAnswer");
+
+                    b.Property<string>("QuestionAnswer");
+
+                    b.Property<int>("QuestionId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("CompletedQuestionId");
+
+                    b.HasAnnotation("Relational:TableName", "CompletedQuestions");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.CompletedQuiz", b =>
+                {
+                    b.Property<int>("CompletedQuizId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("QuizId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("CompletedQuizId");
+
+                    b.HasAnnotation("Relational:TableName", "CompletedQuizzes");
                 });
 
             modelBuilder.Entity("MeriEducation.Models.Question", b =>
@@ -212,6 +246,28 @@ namespace System.Migrations
                     b.HasOne("MeriEducation.Models.Avatar")
                         .WithOne()
                         .HasForeignKey("MeriEducation.Models.ApplicationUser", "AvatarId");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.CompletedQuestion", b =>
+                {
+                    b.HasOne("MeriEducation.Models.CompletedQuiz")
+                        .WithMany()
+                        .HasForeignKey("CompletedQuizId");
+
+                    b.HasOne("MeriEducation.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.CompletedQuiz", b =>
+                {
+                    b.HasOne("MeriEducation.Models.Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId");
+
+                    b.HasOne("MeriEducation.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MeriEducation.Models.Question", b =>

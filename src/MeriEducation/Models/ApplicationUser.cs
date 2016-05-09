@@ -18,16 +18,4 @@ namespace MeriEducation.Models
         public virtual Avatar Avatar { get; set; }
         public int? Points { get; set; }
     }
-
-    public static class IdentityHelper
-    {
-        public static string GetFirstName(this IIdentity identity)
-        {
-            var claimIdent = identity as ClaimsIdentity;
-            return claimIdent != null
-                && claimIdent.HasClaim(c => c.Type == "FirstName")
-                ? claimIdent.FindFirst("ProfilePicture").Value
-                : string.Empty;
-        }
-    }
 }

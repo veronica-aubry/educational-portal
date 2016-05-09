@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace System.Controllers
+namespace MeriEducation.Controllers
 {
     public class QuizController : Controller
     {
@@ -37,9 +37,33 @@ namespace System.Controllers
         {
             var user = await _userManager.FindByIdAsync(User.GetUserId());
             ViewBag.User = user;
-            var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).ToList().FirstOrDefault(quizzes => quizzes.QuizId == id);
-            return View(thisQuiz);
+            var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).FirstOrDefault(quizzes => quizzes.QuizId == id);
+            var questions = thisQuiz.Questions.ToList();
+            CompletedQuiz newCompletedQuiz = new CompletedQuiz(id, user.Id);
+            _db.CompletedQuizzes.Add(newCompletedQuiz);
+            _db.SaveChanges();
+            return View(questions);
         }
 
+        public IActionResult QuestionTake(int quizId, int questionId)
+        {
+            Console.WriteLine(quizId);
+            var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).FirstOrDefault(quizzes => quizzes.QuizId == quizId);
+            var questions = thisQuiz.Questions.ToList();
+            return View(questions[questionId]);
+        }
+
+        public IActionResult QuestionAnswer(string questionAnswer, int questionId)
+        {
+            Console.WriteLine(questionId);
+            Console.WriteLine(questionAnswer);
+            var user = User.GetUserId();
+            var thisQuestion = _db.Questions.Include(questions => questions.Quiz).FirstOrDefault(questions => questions.QuestionId == questionId);
+            var thisQuiz = _db.CompletedQuizzes.FirstOrDefault(quizzes => quizzes.UserId == user && quizzes.QuizId == thisQuestion.QuizId);
+            CompletedQuestion newCompletedQuestion = new CompletedQuestion(thisQuiz.CompletedQuizId, user, thisQuestion.QuestionId, questionAnswer, thisQuestion.CorrectAnswer);
+            _db.CompletedQuestions.Add(newCompletedQuestion);
+            _db.SaveChanges();
+            return Json(newCompletedQuestion.QuestionAnswer);
+        }
     }
 }

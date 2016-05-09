@@ -1,50 +1,45 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+﻿
 @model MeriEducation.Models.Question
 
-    <h2>Edit</h2>
-    <hr />
-    <h4>Edit this Question: @Html.DisplayFor(model => model.QuestionText)</h4>
+<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
 
-    @using (Html.BeginForm())
-    {
+<script>
+$(document).ready(function () {
+    $('.question-form').submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '@Url.Action("QuestionEdit")',
+            type: 'POST',
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function () {
+                $('.question-form').remove();
+                location.reload();
+           }
+        });
+    });
+});
+</script>
 
-  
-        @Html.HiddenFor(model => model.QuestionId)
-        @Html.HiddenFor(model => model.QuizId)
-
-        <p>
-            @Html.LabelFor(model => model.QuestionText)
-            @Html.EditorFor(model => model.QuestionText)
-        </p>
-
-        <p>
-            @Html.LabelFor(model => model.Answer1)
-            @Html.EditorFor(model => model.Answer1)
-        </p>
-
-        <p>
-            @Html.LabelFor(model => model.Answer2)
-            @Html.EditorFor(model => model.Answer2)
-        </p>
-
-        <p>
-            @Html.LabelFor(model => model.Answer3)
-            @Html.EditorFor(model => model.Answer3)
-        </p>
-
-        <p>
-            @Html.LabelFor(model => model.Answer4)
-            @Html.EditorFor(model => model.Answer4)
-        </p>
-
-        <p>
-            @Html.LabelFor(model => model.CorrectAnswer)
-            @Html.EditorFor(model => model.CorrectAnswer)
-        </p>
-
-        <input type="submit" value="Save" />
-    }
-    <p>@Html.ActionLink("Back to Quiz", "Details", new { id = @Model.QuizId })</p>
+<form action="QuestionEdit" class="question-form">
+    <label for="newQuestionText">Question Text: </label>
+    <input type="text" name="newQuestionText" value="@Model.QuestionText" />
+    <br />
+    <label for="newAnswer1">Option 1: </label>
+    <input type="text" name="newAnswer1"  value="@Model.Answer1" />
+    <br />
+    <label for="newAnswer2">Option 2: </label>
+    <input type="text" name="newAnswer2"  value="@Model.Answer2" />
+    <br />
+    <label for="newAnswer3">Option 3: </label>
+    <input type="text" name="newAnswer3"  value="@Model.Answer3" />
+    <br />
+    <label for="newAnswer4">Option 4: </label>
+    <input type="text" name="newAnswer4"  value="@Model.Answer4"/>
+    <br />
+    <label for="newCorrectAnswer">Correct Answer: </label>
+    <input type="text" name="newCorrectAnswer"  value="@Model.CorrectAnswer"/>
+    <input hidden name="quizId" value=@Model.QuizId type="number" />
+    <input hidden name="QuestionId" value="@Model.QuestionId" type="number" />
+    <button type="submit">Submit</button>
+</form>

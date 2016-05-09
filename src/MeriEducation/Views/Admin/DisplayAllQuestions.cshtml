@@ -1,0 +1,12 @@
+﻿<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js"></script>
+
+
+@model MeriEducation.Models.Quiz
+
+
+
+    @foreach (var question in Model.Questions)
+    {
+        @Html.Partial("DisplayQuestion", question)
+    }
+

@@ -2,25 +2,122 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model System.Models.Quiz
 
-<h2>Quiz Details</h2>
+<script>
+  $(document).ready(function () {
+      $('.answer-question').submit(function (event) {
+          var that = this;
+          event.preventDefault();
+          $.ajax({
+            url: '@Url.Action("QuestionAnswer")',
+            type: 'POST',
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function (result) {
+                $(that).parent().prepend('<span class="glyphicon glyphicon-ok"></span>');
+            }
+         });
+      });
+  });
+</script>
+
+<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+@model IList<MeriEducation.Models.Question>
+
+
+<h2>Quiz</h2>
 <hr />
 
-<p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
+@*<div class="question">
+@Html.Partial("QuestionTake", Model[0])
+</div>
+<span class="next">NEXT</span>*@
+
+@*<div class="question">
+    @Model[0].QuestionText
+</div>*@
+
+ <br />
+
+<div id="myCarousel" class="carousel slide" data-interval="false">
+
+    <div class="row">
+        <div class="col-xs-offset-3 col-xs-6">
+            <div class="carousel-inner">
+                <div class="item active" id="0">
+                    <div>
+                        Question 1
+
+                        <form action="AnswerQuestion" class="answer-question">
+                            <h3>@Model[0].QuestionText</h3>
+                            <br />
+                                <input type="radio" name="questionAnswer" value="Answer1">@Model[0].Answer1<br>
+                                <input type="radio" name="questionAnswer"  value="Answer2">@Model[0].Answer2<br>
+                                <input type="radio" name="questionAnswer"  value="Answer3">@Model[0].Answer3<br>
+                                <input type="radio" name="questionAnswer"  value="Answer4">@Model[0].Answer4<br>
+                                <input type="hidden" name="questionId" value ="@Model[0].QuestionId" />
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
 
 
-Questions:
-<br /> <br />
+                @for (var i = 1; i < Model.Count(); i++)
+            {
+                    <div class="item" id="@i">
+                        <div>
+                            Question @(i + 1)
+                            <form action="AnswerQuestion" class="answer-question">
+                                <h3>@Model[i].QuestionText</h3>
+                                <br />
+                                <input type="radio" name="questionAnswer" value="Answer1">@Model[i].Answer1<br>
+                                <input type="radio" name="questionAnswer" value="Answer2">@Model[i].Answer2<br>
+                                <input type="radio" name="questionAnswer" value="Answer3">@Model[i].Answer3<br>
+                                <input type="radio" name="questionAnswer" value="Answer4">@Model[i].Answer4<br>
+                                <input type="hidden" name="questionId" value="@Model[i].QuestionId" />
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
 
-@foreach (var question in Model.Questions)
-{
-    @Html.DisplayFor(model => question.QuestionText)
-    <p>@Html.DisplayFor(model => question.Answer1)</p>
-    <p>@Html.DisplayFor(model => question.Answer2)</p>
-    <p>@Html.DisplayFor(model => question.Answer3)</p>
-    <p>@Html.DisplayFor(model => question.Answer4)</p>
+                    </div>
+                }
 
-}
+            </div>
+        </div>
+    </div>
+
+        <!-- Controls -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
+    <div class="indicators">
+
+        <ol class="carousel-indicators">
+
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+
+            @for (var i = 1; i < Model.Count(); i++)
+            {
+                <li data-target="#myCarousel" data-slide-to="@i"></li>
+            }
+
+        </ol>
+    </div>
+   </div>
+
+
+
+
+
+
 
 <p>@Html.ActionLink("Back to Quizes", "quizzes")</p>

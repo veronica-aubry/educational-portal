@@ -4,25 +4,105 @@
 
 @model MeriEducation.Models.AddQuizViewModel
 
+@*<script type="text/javascript">
+  $(document).ready(function () {
+      $('#.new-quiz').onSubmit(function (event) {
+          event.preventDefault();
+          $.ajax({
+              url: '@Url.Action("Create")',
+              type: 'POST',
+              dataType: 'json',
+              data: $(this).serialize(),
+              success: function (result) {
+                  var resultMessage = result.Name;
+                  $('#quiz-display').html(resultMessage);
+              }
+          });
+          
+      });
+  });
+
+    </script>*@
 
     <h2>Create</h2>
     <hr />
     <h4>Add a new quiz</h4>
 
-       
-        @using (Html.BeginForm())
+
+@*<div id="quiz-display">
+    <form action="NewQuiz" class="new-quiz">
+        <label for="newName">Name: </label>
+        <input type="text" name="newName" />
+        <label for="newGrade">Grade: </label>
+        <input type="number" name="newGrade" />
+        <button type="submit">Submit</button>
+    </form>
+</div>*@
+
+<div id="quiz">
+    @using (Html.BeginForm())
     {
             <p>
-                Quiz Name
+                Name
                 @Html.TextBoxFor(model => model.Name)
             </p>
 
             <p>
-                Quiz Grade
+                Grade
                 @Html.TextBoxFor(model => model.Grade)
             </p>
 
-            <button type="button" onclick="addQuestion();">"Add a Question"</button>
+    <input type="submit" value="Create" />
+    }
+    </div>
+
+    <hr />
+
+
+  
+
+
+@*<input type="submit" value="Create" />
+
+
+    <div id="quiz-display">
+        <form action="NewQuiz" class="new-quiz">
+            <label for="newName">Name: </label>
+            <input type="text" name="newName" />
+            <label for="newGrade">Grade: </label>
+            <input type="number" name="newGrade" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+<hr />
+
+
+    <div id="questions">
+        <form action="NewQuestion" class="new-question">
+            <label for="newQuestionText">Question Text: </label>
+            <input type="text" name="newQuestionText" />
+            <br />
+            <label for="newAnswer1">Option 1: </label>
+            <input type="text" name="newAnswer1" />
+            <br />
+            <label for="newAnswer2">Option 2: </label>
+            <input type="text" name="newAnswer2" />
+            <br />
+            <label for="newAnswer3">Option 3: </label>
+            <input type="text" name="newAnswer3" />
+            <br />
+            <label for="newAnswer4">Option 4: </label>
+            <input type="text" name="newAnswer4" />
+            <br />
+            <label for="newCorrectAnswer">Correct Answer: </label>
+            <input type="text" name="newCorrectAnswer" />
+            <input hidden name="QuizId" value=@ViewBag.QuizI type="number"/>
+            <button type="submit">Submit</button>
+        </form>
+    </div>*@
+
+            @*<button type="button" onclick="addQuestion();">"Add a Question"</button>
 
             <div id="questions">
                 <div class="questionsForm">
@@ -62,6 +142,6 @@
 
                     <input type="submit" value="Create" />
 
-        }
+        }*@
 
     <p>@Html.ActionLink("Back to quiz list", "Quizzes")</p>

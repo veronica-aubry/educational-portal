@@ -14,7 +14,7 @@
             @if (listItem.Grade == 7)
             {
                 <li>
-                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
+                    <a href=@Url.Action("AddQuestion", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
                     @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
                     {
                         <input type="submit" value="Delete" />
@@ -32,7 +32,7 @@
             @if (listItem.Grade == 8)
             {
                 <li>
-                    <a href=@Url.Action("Details", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
+                    <a href=@Url.Action("AddQuestion", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
                     @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
                     {
                         <input type="submit" value="Delete" />

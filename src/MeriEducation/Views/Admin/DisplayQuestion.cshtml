@@ -1,0 +1,28 @@
+﻿@model MeriEducation.Models.Question
+
+
+ <script>
+     $(document).ready(function () {
+         $('.editQuestion-@Model.QuestionId').click(function () {
+             $.ajax({
+                 type: 'GET',
+                 dataType: 'html',
+                 url: '@Url.Action("EditQuestion", new { id = Model.QuestionId })',
+                 success: function (result) {
+                     $('.question-@Model.QuestionId').append(result);
+                 }
+             });
+         });
+     });
+</script>
+
+
+<div class="question-@Model.QuestionId">
+    <h3>@Model.QuestionText</h3>
+    <span class="editQuestion-@Model.QuestionId">Edit</span>
+    <br>
+    <p>(A) @Model.Answer1</p>
+    <p>(B) @Model.Answer2</p>
+    <p>(C) @Model.Answer3</p>
+    <p>(D) @Model.Answer4</p>
+</div>
