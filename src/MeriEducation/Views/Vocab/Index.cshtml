@@ -1,0 +1,15 @@
+﻿@model List<MeriEducation.Models.VocabWordList>
+
+
+@foreach (var list in Model)
+{
+    <p>@list.Word1</p>
+    <p>@list.Word2</p>
+    <p>@list.Word3</p>
+    <p>@list.Word4</p>
+
+    <p>@Html.ActionLink("Take Test", "GetMatches", list)</p>
+
+}
+
+<p>@Html.ActionLink("Add a list", "AddVocabTest", "Admin")</p>

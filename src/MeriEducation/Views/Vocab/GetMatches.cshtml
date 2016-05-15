@@ -1,0 +1,22 @@
+﻿@model MeriEducation.ViewModels.VocabTestViewModel
+
+<p>@Model.VocabWords.Word1</p>
+<p>@Model.VocabWords.Word2</p>
+<p>@Model.VocabWords.Word3</p>
+<p>@Model.VocabWords.Word4</p>
+
+<hr />
+
+
+@foreach (var dictionary in Model.Synonyms)
+{
+    @foreach (KeyValuePair<string, List<string>> match in dictionary)
+    {
+        @foreach (var words in @match.Value)
+        {
+            <p>@words</p>
+        }
+
+    }
+}
+

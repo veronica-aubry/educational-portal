@@ -14,7 +14,9 @@
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final"
+    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+    "Newtonsoft.Json": "8.0.3",
+    "RestSharp": "105.2.3"
   },
 
   "commands": {
@@ -23,8 +25,10 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": { }
+    "dnx451": {
+      "dependencies": {
+      }
+    }
   },
 
   "exclude": [

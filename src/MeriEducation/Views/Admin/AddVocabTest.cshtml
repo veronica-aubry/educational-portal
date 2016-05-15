@@ -1,0 +1,19 @@
+﻿@model MeriEducation.Models.VocabWordList
+
+
+@using (Html.BeginForm())
+{
+    <label>Word 1</label> <br />
+    @Html.EditorFor(model => model.Word1)
+
+    <label>Word 2</label> <br />
+    @Html.EditorFor(model => model.Word2)
+
+    <label>Word 2</label> <br />
+    @Html.EditorFor(model => model.Word3)
+
+    <label>Word 2</label> <br />
+    @Html.EditorFor(model => model.Word4)
+
+    <input type="submit" value="AddVocabTest" />
+}

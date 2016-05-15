@@ -45,19 +45,6 @@ namespace MeriEducation.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(AddQuizViewModel model)
-        {
-            var quiz = new Quiz
-            {
-                Name = model.Name,
-                Grade = model.Grade
-            };
-            _db.Quizzes.Add(quiz);
-            _db.SaveChanges();
-            return RedirectToAction("AddQuestion", new { id = quiz.QuizId });
-
-            }
 
         public ActionResult AddQuestion(int id)
         {
@@ -145,6 +132,19 @@ namespace MeriEducation.Controllers
             _db.Entry(thisQuiz).State = EntityState.Modified;
             _db.SaveChanges();
             return Json(thisQuiz);
+        }
+
+        public ActionResult AddVocabTest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddVocabTest(VocabWordList vocabWordList)
+        {
+            _db.VocabWordLists.Add(vocabWordList);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Vocab");
         }
     }
 }
