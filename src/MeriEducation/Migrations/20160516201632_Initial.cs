@@ -36,6 +36,21 @@ namespace MeriEducation.Migrations
                     table.PrimaryKey("PK_Quiz", x => x.QuizId);
                 });
             migrationBuilder.CreateTable(
+                name: "VocabWordLists",
+                columns: table => new
+                {
+                    WordListId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Word1 = table.Column<string>(nullable: true),
+                    Word2 = table.Column<string>(nullable: true),
+                    Word3 = table.Column<string>(nullable: true),
+                    Word4 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VocabWordList", x => x.WordListId);
+                });
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -132,7 +147,9 @@ namespace MeriEducation.Migrations
                 {
                     CompletedQuizId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    InProgress = table.Column<bool>(nullable: false),
                     QuizId = table.Column<int>(nullable: false),
+                    Score = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -235,6 +252,12 @@ namespace MeriEducation.Migrations
                         principalColumn: "CompletedQuizId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_CompletedQuestion_Question_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "QuestionId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
                         name: "FK_CompletedQuestion_ApplicationUser_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
@@ -258,15 +281,16 @@ namespace MeriEducation.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable("CompletedQuestions");
-            migrationBuilder.DropTable("Questions");
+            migrationBuilder.DropTable("VocabWordLists");
             migrationBuilder.DropTable("AspNetRoleClaims");
             migrationBuilder.DropTable("AspNetUserClaims");
             migrationBuilder.DropTable("AspNetUserLogins");
             migrationBuilder.DropTable("AspNetUserRoles");
             migrationBuilder.DropTable("CompletedQuizzes");
+            migrationBuilder.DropTable("Questions");
             migrationBuilder.DropTable("AspNetRoles");
-            migrationBuilder.DropTable("Quizzes");
             migrationBuilder.DropTable("AspNetUsers");
+            migrationBuilder.DropTable("Quizzes");
             migrationBuilder.DropTable("Avatars");
         }
     }

@@ -111,7 +111,11 @@ namespace MeriEducation.Migrations
                     b.Property<int>("CompletedQuizId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("InProgress");
+
                     b.Property<int>("QuizId");
+
+                    b.Property<int?>("Score");
 
                     b.Property<string>("UserId");
 
@@ -270,6 +274,10 @@ namespace MeriEducation.Migrations
                     b.HasOne("MeriEducation.Models.CompletedQuiz")
                         .WithMany()
                         .HasForeignKey("CompletedQuizId");
+
+                    b.HasOne("MeriEducation.Models.Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId");
 
                     b.HasOne("MeriEducation.Models.ApplicationUser")
                         .WithMany()

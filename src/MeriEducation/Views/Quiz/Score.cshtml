@@ -1,0 +1,13 @@
+﻿@model MeriEducation.Models.CompletedQuiz
+
+
+<h2>Your Score</h2>
+<p>(@Model.Score)%</p>
+
+@foreach (var question in Model.CompletedQuestions)
+{
+    <p>Correct answer:</p>
+    <p>@question.CorrectAnswer</p>
+    <p>Your answer:</p>
+    <p>@question.QuestionAnswer</p>
+}

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Text.RegularExpressions;
+using MeriEducation.Models;
 
 namespace MeriEducation.Models
 {

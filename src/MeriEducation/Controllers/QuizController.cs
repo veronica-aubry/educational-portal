@@ -39,10 +39,28 @@ namespace MeriEducation.Controllers
             ViewBag.User = user;
             var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).FirstOrDefault(quizzes => quizzes.QuizId == id);
             var questions = thisQuiz.Questions.ToList();
-            CompletedQuiz newCompletedQuiz = new CompletedQuiz(id, user.Id);
-            _db.CompletedQuizzes.Add(newCompletedQuiz);
-            _db.SaveChanges();
-            return View(questions);
+            bool exists = _db.CompletedQuizzes.Any(row => row.UserId == User.GetUserId() && row.QuizId == id);
+            if (exists == false)
+            {
+                CompletedQuiz newCompletedQuiz = new CompletedQuiz(id, user.Id);
+                _db.CompletedQuizzes.Add(newCompletedQuiz);
+                _db.SaveChanges();
+                Console.WriteLine("it thinks it does not exist yet");
+                return View(questions);
+            } else
+            {
+                var startedQuiz = _db.CompletedQuizzes.Include(quizzes => quizzes.CompletedQuestions).FirstOrDefault(quizzes => quizzes.UserId == User.GetUserId());
+                if (startedQuiz.InProgress == true)
+                {
+                    Console.WriteLine("it thinks it exists but is in progress");
+                    return View(questions);
+                } else
+                {
+                    Console.WriteLine("it thinks it exists and is not in progress");
+                   return View("Score", startedQuiz);
+                }
+            }
+
         }
 
         public IActionResult QuestionTake(int quizId, int questionId)
@@ -65,5 +83,22 @@ namespace MeriEducation.Controllers
             _db.SaveChanges();
             return Json(newCompletedQuestion.QuestionAnswer);
         }
+
+        public async Task<IActionResult> Score(int id)
+        {
+            Console.WriteLine(id);
+            var userId = User.GetUserId();
+            var user = await _userManager.FindByIdAsync(User.GetUserId());
+            var thisCompletedQuiz = _db.CompletedQuizzes.Include(questions => questions.CompletedQuestions).FirstOrDefault(quiz => quiz.QuizId == id && quiz.UserId == userId);
+           Console.WriteLine(thisCompletedQuiz.CompletedQuizId);
+           thisCompletedQuiz.InProgress = false;
+            Console.WriteLine(thisCompletedQuiz.InProgress);
+           thisCompletedQuiz.Score = CompletedQuiz.ScoreQuiz(thisCompletedQuiz);
+            Console.WriteLine(thisCompletedQuiz.Score);
+            user.Points = user.Points + (thisCompletedQuiz.Score)/10;
+            _db.SaveChanges();
+            return View(thisCompletedQuiz);
+        }
+
     }
 }

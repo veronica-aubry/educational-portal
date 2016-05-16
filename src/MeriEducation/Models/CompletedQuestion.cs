@@ -18,6 +18,7 @@ namespace MeriEducation.Models
         public string QuestionAnswer { get; set; }
         public string CorrectAnswer { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public virtual Question Question { get; set; }
         public virtual CompletedQuiz CompletedQuiz { get; set; }
 
 

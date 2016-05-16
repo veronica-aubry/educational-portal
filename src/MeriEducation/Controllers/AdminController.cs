@@ -46,6 +46,22 @@ namespace MeriEducation.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult Create(AddQuizViewModel model)
+        {
+            var quiz = new Quiz
+            {
+                Name = model.Name,
+                Grade = model.Grade
+            };
+            _db.Quizzes.Add(quiz);
+            _db.SaveChanges();
+            return RedirectToAction("AddQuestion", new { id = quiz.QuizId });
+
+        }
+
+
+
         public ActionResult AddQuestion(int id)
         {
             var thisQuiz = _db.Quizzes.Include(quizes => quizes.Questions).ToList().FirstOrDefault(quizes => quizes.QuizId == id);

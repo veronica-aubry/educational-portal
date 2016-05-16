@@ -8,7 +8,7 @@ using MeriEducation.Models;
 namespace MeriEducation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160509005946_Initial")]
+    [Migration("20160516201632_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,7 +112,11 @@ namespace MeriEducation.Migrations
                     b.Property<int>("CompletedQuizId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("InProgress");
+
                     b.Property<int>("QuizId");
+
+                    b.Property<int?>("Score");
 
                     b.Property<string>("UserId");
 
@@ -157,6 +161,24 @@ namespace MeriEducation.Migrations
                     b.HasKey("QuizId");
 
                     b.HasAnnotation("Relational:TableName", "Quizzes");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.VocabWordList", b =>
+                {
+                    b.Property<int>("WordListId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Word1");
+
+                    b.Property<string>("Word2");
+
+                    b.Property<string>("Word3");
+
+                    b.Property<string>("Word4");
+
+                    b.HasKey("WordListId");
+
+                    b.HasAnnotation("Relational:TableName", "VocabWordLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
@@ -253,6 +275,10 @@ namespace MeriEducation.Migrations
                     b.HasOne("MeriEducation.Models.CompletedQuiz")
                         .WithMany()
                         .HasForeignKey("CompletedQuizId");
+
+                    b.HasOne("MeriEducation.Models.Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId");
 
                     b.HasOne("MeriEducation.Models.ApplicationUser")
                         .WithMany()
