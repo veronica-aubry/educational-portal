@@ -24,20 +24,25 @@
         <label for="newQuestionText">Question Text: </label>
         <input type="text" name="newQuestionText" />
         <br />
-        <label for="newAnswer1">Option 1: </label>
-        <input type="text" name="newAnswer1" />
+        <label for="newAnswer1">(A)</label>
+        <input type="text" name="newAnswer1" class="newAnswer1" />
         <br />
-        <label for="newAnswer2">Option 2: </label>
+        <label for="newAnswer2">(B)</label>
         <input type="text" name="newAnswer2" />
         <br />
-        <label for="newAnswer3">Option 3: </label>
+        <label for="newAnswer3">(C)</label>
         <input type="text" name="newAnswer3" />
         <br />
-        <label for="newAnswer4">Option 4: </label>
+        <label for="newAnswer4">(D)</label>
         <input type="text" name="newAnswer4" />
         <br />
         <label for="newCorrectAnswer">Correct Answer: </label>
-        <input type="text" name="newCorrectAnswer" />
+        <select name="newCorrectAnswer" class="correct">
+            <option value="Answer1">A</option>
+            <option value="Answer2">B</option>
+            <option value="Answer3">C</option>
+            <option vale="Answer4">D</option>
+        </select>
         <input hidden name="QuizId" value=@Model.QuizId type="number" />
         <button type="submit">Submit</button>
     </form>

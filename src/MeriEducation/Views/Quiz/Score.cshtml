@@ -2,11 +2,14 @@
 
 
 <h2>Your Score</h2>
-<p>(@Model.Score)%</p>
+<p>@Model.Score%</p>
+
+<p>@Model.Quiz</p>
+<p>@Model.Quiz</p>
 
 @foreach (var question in Model.CompletedQuestions)
 {
-    <p>Correct answer:</p>
+        <p>Correct answer:</p>
     <p>@question.CorrectAnswer</p>
     <p>Your answer:</p>
     <p>@question.QuestionAnswer</p>

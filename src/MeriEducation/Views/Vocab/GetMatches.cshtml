@@ -1,22 +1,49 @@
-﻿@model MeriEducation.ViewModels.VocabTestViewModel
-
-<p>@Model.VocabWords.Word1</p>
-<p>@Model.VocabWords.Word2</p>
-<p>@Model.VocabWords.Word3</p>
-<p>@Model.VocabWords.Word4</p>
-
-<hr />
+﻿<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+@*<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />*@
+<script type="text/javascript" src="~/js/interact.min.js"></script>
+<script type="text/javascript" src="~/js/scripts.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/styles.css">
 
 
-@foreach (var dictionary in Model.Synonyms)
-{
-    @foreach (KeyValuePair<string, List<string>> match in dictionary)
-    {
-        @foreach (var words in @match.Value)
-        {
-            <p>@words</p>
-        }
 
-    }
-}
+@model MeriEducation.ViewModels.VocabTestViewModel
+
+
+
+<div class="container" id="bottom">
+     <div class="row">
+
+         @foreach (var dictionary in Model.Synonyms)
+         {
+             @foreach (KeyValuePair<string, List<string>> match in dictionary)
+             {
+                 @foreach (var word in @match.Value)
+                 {
+                     <div class="draggable drag-drop @match.Key yes-drop">@word</div>
+                 }
+
+             }
+         }
+
+         <hr />
+
+         <div class="dropzone" id="@Model.VocabWords.Word1">
+             <p>@Model.VocabWords.Word1</p>
+         </div>
+
+          
+             <div class="dropzone" id="@Model.VocabWords.Word2">
+                 <p>@Model.VocabWords.Word2</p>
+             </div>
+
+             <div class="dropzone" id="@Model.VocabWords.Word3">
+                 <p>@Model.VocabWords.Word3</p>
+             </div>
+
+             <div class="dropzone" id="@Model.VocabWords.Word4">
+                 <p>@Model.VocabWords.Word4</p>
+             </div>
+         </div>
+     </div>
+<button>Check Answers</button>
 

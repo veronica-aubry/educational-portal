@@ -49,7 +49,7 @@ namespace MeriEducation.Controllers
                 return View(questions);
             } else
             {
-                var startedQuiz = _db.CompletedQuizzes.Include(quizzes => quizzes.CompletedQuestions).FirstOrDefault(quizzes => quizzes.UserId == User.GetUserId());
+                var startedQuiz = _db.CompletedQuizzes.Include(quizzes => quizzes.CompletedQuestions).Include(quizzes => quizzes.Quiz).FirstOrDefault(quizzes => quizzes.UserId == User.GetUserId());
                 if (startedQuiz.InProgress == true)
                 {
                     Console.WriteLine("it thinks it exists but is in progress");
@@ -86,15 +86,11 @@ namespace MeriEducation.Controllers
 
         public async Task<IActionResult> Score(int id)
         {
-            Console.WriteLine(id);
             var userId = User.GetUserId();
             var user = await _userManager.FindByIdAsync(User.GetUserId());
             var thisCompletedQuiz = _db.CompletedQuizzes.Include(questions => questions.CompletedQuestions).FirstOrDefault(quiz => quiz.QuizId == id && quiz.UserId == userId);
-           Console.WriteLine(thisCompletedQuiz.CompletedQuizId);
            thisCompletedQuiz.InProgress = false;
-            Console.WriteLine(thisCompletedQuiz.InProgress);
            thisCompletedQuiz.Score = CompletedQuiz.ScoreQuiz(thisCompletedQuiz);
-            Console.WriteLine(thisCompletedQuiz.Score);
             user.Points = user.Points + (thisCompletedQuiz.Score)/10;
             _db.SaveChanges();
             return View(thisCompletedQuiz);

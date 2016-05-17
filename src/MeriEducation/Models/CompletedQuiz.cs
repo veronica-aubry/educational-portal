@@ -30,9 +30,12 @@ namespace MeriEducation.Models
                     score = score + 1;
                 }
             }
+            var totalQuestions = quiz.CompletedQuestions.Count();
             Console.WriteLine(quiz.CompletedQuestions.Count());
             Console.WriteLine(score);
-            var finalScore = (score / (quiz.CompletedQuestions.Count())) * 100;
+            double doubleScore = (double)score/totalQuestions;
+            Console.WriteLine(doubleScore);
+            var finalScore = Convert.ToInt32((doubleScore * 100));
             return finalScore;
         }
 
