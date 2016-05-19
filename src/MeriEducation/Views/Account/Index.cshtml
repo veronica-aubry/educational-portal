@@ -5,6 +5,7 @@
 
 @using System.Security.Claims
 @using MeriEducation.ViewModels
+@using MeriEducation
 @model LoginViewModel
 
 <hr />
@@ -16,7 +17,6 @@
         @Html.Partial("_AvatarCreate")
     }
 
-
 }
 else
 {
@@ -24,4 +24,5 @@ else
     <hr />
         <p>@Html.ActionLink("Log in", "Login")</p>
         <p>@Html.ActionLink("Register", "Register")</p>
-    }
+
+}

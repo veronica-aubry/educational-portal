@@ -1,4 +1,22 @@
-﻿interact('.draggable')
+﻿
+//Avatar Create Page
+
+$(document).ready(function () {
+    $("#hairId").change(function () {
+        $('#hair').html("<img src='/images/hair/" + this.value + ".png'/>")
+    });
+    $("#skinId").change(function () {
+        $('#skin').html("<img src='/images/skin/" + this.value + ".png'/>")
+    });
+    $("#outfitId").change(function () {
+        $('#outfits').html("<img src='/images/outfit/" + this.value + ".png'/>")
+    });
+});
+
+
+//Vocab interact scripts
+
+interact('.draggable')
   .draggable({
       inertia: true,
       autoScroll: true,

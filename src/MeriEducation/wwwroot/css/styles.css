@@ -1,4 +1,51 @@
-﻿.dropzone {
+﻿
+/*Avatar Page Styling*/
+
+#hair img {
+   position: absolute;
+   left: 14px;
+}
+
+#outfits img {
+    position: absolute;
+    left:14px;
+}
+
+#hairLayout img {
+    position:absolute;
+    top: 0px;
+    bottom: 0px;
+    z-index: 3;
+}
+
+#outfitsLayout img {
+    position: absolute;
+    top: 0px;
+    z-index: 3;
+
+}
+
+
+#skinLayout img {
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+}
+
+#visualLayout {
+    margin-bottom: 100px;
+}
+
+.sidebar {
+    background-color: aliceblue;
+    height: 800px;
+}
+
+
+
+/*Vocab Quiz Styling*/
+
+.dropzone {
   background-color: #ccc;
   border: dashed 4px transparent;
   border-radius: 4px;

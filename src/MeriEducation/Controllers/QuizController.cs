@@ -26,17 +26,14 @@ namespace MeriEducation.Controllers
             _db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var user = await _userManager.FindByIdAsync(User.GetUserId());
-            ViewBag.User = user;
             return View(_db.Quizzes.ToList());
         }
 
         public async Task<IActionResult> Details(int id)
         {
             var user = await _userManager.FindByIdAsync(User.GetUserId());
-            ViewBag.User = user;
             var thisQuiz = _db.Quizzes.Include(quizzes => quizzes.Questions).FirstOrDefault(quizzes => quizzes.QuizId == id);
             var questions = thisQuiz.Questions.ToList();
             bool exists = _db.CompletedQuizzes.Any(row => row.UserId == User.GetUserId() && row.QuizId == id);

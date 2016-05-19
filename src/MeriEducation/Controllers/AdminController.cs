@@ -25,6 +25,12 @@ namespace MeriEducation.Controllers
             _db = db;
         }
 
+        //public AdminController()
+        //{
+        //    var user = _userManager.FindByIdAsync(User.GetUserId());
+        //    ViewBag.User = user;
+        //}
+
 
         public async Task<IActionResult> Index()
         {

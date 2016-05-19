@@ -7,6 +7,7 @@ using MeriEducation.Models;
 using MeriEducation.ViewModels;
 using System.Text.RegularExpressions;
 using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace MeriEducation.Controllers
 {
@@ -22,7 +23,7 @@ namespace MeriEducation.Controllers
             _signInManager = signInManager;
             _db = db;
         }
-   
+
         public IActionResult Index()
         {
             return View(_db.VocabWordLists.ToList());

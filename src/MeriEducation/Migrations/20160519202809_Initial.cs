@@ -10,17 +10,30 @@ namespace MeriEducation.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Avatars",
+                name: "Hairs",
                 columns: table => new
                 {
-                    AvatarId = table.Column<int>(nullable: false)
+                    HairId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GenderId = table.Column<int>(nullable: false),
-                    SkinId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Avatar", x => x.AvatarId);
+                    table.PrimaryKey("PK_Hair", x => x.HairId);
+                });
+            migrationBuilder.CreateTable(
+                name: "Outfits",
+                columns: table => new
+                {
+                    OutfitId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Outfit", x => x.OutfitId);
                 });
             migrationBuilder.CreateTable(
                 name: "Quizzes",
@@ -34,6 +47,18 @@ namespace MeriEducation.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Quiz", x => x.QuizId);
+                });
+            migrationBuilder.CreateTable(
+                name: "Skins",
+                columns: table => new
+                {
+                    SkinId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Skin", x => x.SkinId);
                 });
             migrationBuilder.CreateTable(
                 name: "VocabWordLists",
@@ -64,40 +89,6 @@ namespace MeriEducation.Migrations
                     table.PrimaryKey("PK_IdentityRole", x => x.Id);
                 });
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    AvatarId = table.Column<int>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(nullable: true),
-                    NormalizedUserName = table.Column<string>(nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    Points = table.Column<int>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationUser_Avatar_AvatarId",
-                        column: x => x.AvatarId,
-                        principalTable: "Avatars",
-                        principalColumn: "AvatarId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-            migrationBuilder.CreateTable(
                 name: "Questions",
                 columns: table => new
                 {
@@ -122,6 +113,38 @@ namespace MeriEducation.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
+                name: "Avatars",
+                columns: table => new
+                {
+                    AvatarId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    HairId = table.Column<int>(nullable: false),
+                    OutfitId = table.Column<int>(nullable: false),
+                    SkinId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Avatar", x => x.AvatarId);
+                    table.ForeignKey(
+                        name: "FK_Avatar_Hair_HairId",
+                        column: x => x.HairId,
+                        principalTable: "Hairs",
+                        principalColumn: "HairId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Avatar_Outfit_OutfitId",
+                        column: x => x.OutfitId,
+                        principalTable: "Outfits",
+                        principalColumn: "OutfitId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Avatar_Skin_SkinId",
+                        column: x => x.SkinId,
+                        principalTable: "Skins",
+                        principalColumn: "SkinId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -140,6 +163,43 @@ namespace MeriEducation.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    AvatarId = table.Column<int>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    HairId = table.Column<int>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    OutfitId = table.Column<int>(nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    Points = table.Column<int>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    SkinId = table.Column<int>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUser_Avatar_AvatarId",
+                        column: x => x.AvatarId,
+                        principalTable: "Avatars",
+                        principalColumn: "AvatarId",
+                        onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateTable(
                 name: "CompletedQuizzes",
@@ -292,6 +352,9 @@ namespace MeriEducation.Migrations
             migrationBuilder.DropTable("AspNetUsers");
             migrationBuilder.DropTable("Quizzes");
             migrationBuilder.DropTable("Avatars");
+            migrationBuilder.DropTable("Hairs");
+            migrationBuilder.DropTable("Outfits");
+            migrationBuilder.DropTable("Skins");
         }
     }
 }
