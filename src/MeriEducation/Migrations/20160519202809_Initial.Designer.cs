@@ -8,7 +8,7 @@ using MeriEducation.Models;
 namespace MeriEducation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160509005946_Initial")]
+    [Migration("20160519202809_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,8 @@ namespace MeriEducation.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<int?>("HairId");
+
                     b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
@@ -47,6 +49,8 @@ namespace MeriEducation.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasAnnotation("MaxLength", 256);
 
+                    b.Property<int?>("OutfitId");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -56,6 +60,8 @@ namespace MeriEducation.Migrations
                     b.Property<int?>("Points");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int?>("SkinId");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -78,7 +84,9 @@ namespace MeriEducation.Migrations
                     b.Property<int>("AvatarId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("GenderId");
+                    b.Property<int>("HairId");
+
+                    b.Property<int>("OutfitId");
 
                     b.Property<int>("SkinId");
 
@@ -112,13 +120,45 @@ namespace MeriEducation.Migrations
                     b.Property<int>("CompletedQuizId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("InProgress");
+
                     b.Property<int>("QuizId");
+
+                    b.Property<int?>("Score");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("CompletedQuizId");
 
                     b.HasAnnotation("Relational:TableName", "CompletedQuizzes");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.Hair", b =>
+                {
+                    b.Property<int>("HairId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Price");
+
+                    b.HasKey("HairId");
+
+                    b.HasAnnotation("Relational:TableName", "Hairs");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.Outfit", b =>
+                {
+                    b.Property<int>("OutfitId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Price");
+
+                    b.HasKey("OutfitId");
+
+                    b.HasAnnotation("Relational:TableName", "Outfits");
                 });
 
             modelBuilder.Entity("MeriEducation.Models.Question", b =>
@@ -157,6 +197,36 @@ namespace MeriEducation.Migrations
                     b.HasKey("QuizId");
 
                     b.HasAnnotation("Relational:TableName", "Quizzes");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.Skin", b =>
+                {
+                    b.Property<int>("SkinId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("SkinId");
+
+                    b.HasAnnotation("Relational:TableName", "Skins");
+                });
+
+            modelBuilder.Entity("MeriEducation.Models.VocabWordList", b =>
+                {
+                    b.Property<int>("WordListId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Word1");
+
+                    b.Property<string>("Word2");
+
+                    b.Property<string>("Word3");
+
+                    b.Property<string>("Word4");
+
+                    b.HasKey("WordListId");
+
+                    b.HasAnnotation("Relational:TableName", "VocabWordLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
@@ -248,11 +318,30 @@ namespace MeriEducation.Migrations
                         .HasForeignKey("MeriEducation.Models.ApplicationUser", "AvatarId");
                 });
 
+            modelBuilder.Entity("MeriEducation.Models.Avatar", b =>
+                {
+                    b.HasOne("MeriEducation.Models.Hair")
+                        .WithMany()
+                        .HasForeignKey("HairId");
+
+                    b.HasOne("MeriEducation.Models.Outfit")
+                        .WithMany()
+                        .HasForeignKey("OutfitId");
+
+                    b.HasOne("MeriEducation.Models.Skin")
+                        .WithMany()
+                        .HasForeignKey("SkinId");
+                });
+
             modelBuilder.Entity("MeriEducation.Models.CompletedQuestion", b =>
                 {
                     b.HasOne("MeriEducation.Models.CompletedQuiz")
                         .WithMany()
                         .HasForeignKey("CompletedQuizId");
+
+                    b.HasOne("MeriEducation.Models.Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId");
 
                     b.HasOne("MeriEducation.Models.ApplicationUser")
                         .WithMany()

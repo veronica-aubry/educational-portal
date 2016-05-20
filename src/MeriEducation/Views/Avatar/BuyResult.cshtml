@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model string
+
+@if (Model == "success")
+{
+
+    <h1>Lookin Fresh!</h1>
+    <h3>Congrats on the new gear.</h3>
+}else {
+    <h1>Whoops! You don't have enough points yet.</h1>
+    <h3>Play some games first!</h3>
+}

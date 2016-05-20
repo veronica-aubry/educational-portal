@@ -20,6 +20,8 @@ namespace MeriEducation.Models
         public string CorrectAnswer { get; set; }
         public int QuizId { get; set; }
         public virtual Quiz Quiz { get; set; }
+        public virtual ICollection<CompletedQuestion> CompletedQuestions { get; set; }
+
 
         public Question(string questionText, string answer1, string answer2, string answer3, string answer4, string correctAnswer, int quizId, int questionId = 0)
         {

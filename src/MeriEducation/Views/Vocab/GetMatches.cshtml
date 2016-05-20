@@ -1,22 +1,53 @@
-﻿@model MeriEducation.ViewModels.VocabTestViewModel
+﻿<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+@*<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />*@
+<script type="text/javascript" src="~/js/interact.min.js"></script>
+<script type="text/javascript" src="~/js/scripts.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/styles.css">
 
-<p>@Model.VocabWords.Word1</p>
-<p>@Model.VocabWords.Word2</p>
-<p>@Model.VocabWords.Word3</p>
-<p>@Model.VocabWords.Word4</p>
-
-<hr />
-
-
-@foreach (var dictionary in Model.Synonyms)
-{
-    @foreach (KeyValuePair<string, List<string>> match in dictionary)
-    {
-        @foreach (var words in @match.Value)
-        {
-            <p>@words</p>
-        }
-
-    }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model MeriEducation.ViewModels.VocabTestViewModel
+
+
+
+<div class="container" id="bottom">
+     <div class="row">
+
+         @foreach (var dictionary in Model.Synonyms)
+         {
+             @foreach (KeyValuePair<string, List<string>> match in dictionary)
+             {
+                 @foreach (var word in @match.Value)
+                 {
+                     <div class="draggable drag-drop @match.Key yes-drop">@word</div>
+                 }
+
+             }
+         }
+
+         <hr />
+         <h2>Drag the synonyms to the correct vocab word and press CHECK!</h2>
+
+         <div class="dropzone" id="@Model.VocabWords.Word1">
+             <h3>@Model.VocabWords.Word1</h3>
+         </div>
+
+          
+             <div class="dropzone" id="@Model.VocabWords.Word2">
+                 <h3>@Model.VocabWords.Word2</h3>
+             </div>
+
+             <div class="dropzone" id="@Model.VocabWords.Word3">
+                 <h3>@Model.VocabWords.Word3</h3>
+             </div>
+
+             <div class="dropzone" id="@Model.VocabWords.Word4">
+                 <h3>@Model.VocabWords.Word4</h3>
+             </div>
+        
+         </div>
+     </div>
+<button type="button" class="btn btn-primary btn-lg btn-block">Check Answers</button>
 

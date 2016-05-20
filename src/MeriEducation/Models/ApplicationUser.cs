@@ -13,9 +13,13 @@ namespace MeriEducation.Models
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
+        public int? SkinId { get; set; }
+        public int? HairId { get; set; }
+        public int? OutfitId { get; set; }
         public string LastName { get; set; }
         public int? AvatarId { get; set; }
-        public virtual Avatar Avatar { get; set; }
+        public virtual Avatar Avatar { get; set;}
         public int? Points { get; set; }
+
     }
 }

@@ -1,0 +1,10 @@
+﻿@model MeriEducation.Models.CompletedQuiz
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Score</h2>
+<p>@Model.Score%</p>
+
+You earned @(Model.Score/10) points from this quiz!

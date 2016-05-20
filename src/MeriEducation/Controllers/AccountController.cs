@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity;
 using MeriEducation.Models;
 using MeriEducation.ViewModels;
 using System.Security.Claims;
+using System.Linq;
+using Microsoft.Data.Entity;
 
 namespace MeriEducation.Controllers
 {
@@ -19,6 +21,13 @@ namespace MeriEducation.Controllers
             _signInManager = signInManager;
             _db = db;
         }
+
+        //public AccountController()
+        //{
+        //    var user = _userManager.FindByIdAsync
+        //      (User.GetUserId());
+        //    ViewBag.User = user;
+        //}
 
         public async Task<IActionResult> Index()
         {
@@ -96,6 +105,22 @@ namespace MeriEducation.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.FindByIdAsync(User.GetUserId());
+            var completedQuizzes = _db.CompletedQuizzes.Include(quizzes => quizzes.Quiz).Where(quizzes => quizzes.UserId == user.Id).ToList();
+            var userAvatar = _db.Avatars.FirstOrDefault(avatar => avatar.AvatarId == user.AvatarId);
+            var model = new ProfileViewModel
+            {
+              User = user,
+              UserAvatar = userAvatar,
+              CompletedQuizzes = completedQuizzes
+            };       
+            return View(model);
+        }
+
+
 
     }
 }

@@ -1,0 +1,35 @@
+﻿<link rel="stylesheet" type="text/css" href="~/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+@model MeriEducation.ViewModels.ProfileViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.User.FirstName @Model.User.LastName</h1>
+
+@if (Model.UserAvatar != null)
+{
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="visual">
+                <span id="skin"><img src="~/images/skin/@(Model.UserAvatar.SkinId).png" /></span>
+                <span id="hair"><img src="~/images/hair/@(Model.UserAvatar.HairId).png"></span>
+                <span id="outfits"><img src="~/images/outfit/@(Model.UserAvatar.OutfitId).png"> </span>
+            </div>
+        </div>
+    </div>
+            }
+
+
+            <p>@Model.User.Points Points</p>
+
+            <h3>Scored Quizzes</h3>
+            @foreach (var quiz in @Model.CompletedQuizzes)
+            {
+                <p>@quiz.Quiz.Name</p>
+                <p>@quiz.Score%</p>
+
+            }

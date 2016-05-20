@@ -5,23 +5,41 @@
 
 @using System.Security.Claims
 @using MeriEducation.ViewModels
+@using MeriEducation
 @model LoginViewModel
 
-<hr />
 @if (User.IsSignedIn())
 {
 
     @if ((ViewBag.User.AvatarId) == null && User.IsInRole("Student"))
     {
-        @Html.Partial("_AvatarCreate")
-    }
+        <h1>Welcome to the MeriEducation Web Portal!</h1>
+        <a href="@Url.Action("Create", "Avatar")">Create your Avatar!</a>
+        <h3>Earn Some Points on Quizzes!</h3>
 
+    }
+    else if (ViewBag.User.AvatarId != null && User.IsInRole("Student"))
+    {
+    <h1>Hey there, @ViewBag.User.FirstName!</h1>
+    <p>Looking for something to do?</p>
+    <a href="@Url.Action("Index", "Quiz")">Take some quizzes!</a><br />
+    <a href="@Url.Action("Index", "Vocab")">Play a vocab game!</a>
+
+    }
+    else if (User.IsInRole("Teacher"))
+    {
+      <div class="container admin">
+          Hey there, @ViewBag.User.FirstName!
+      </div>
+
+        }
+    }
+    else
+    {
+    <br />
+    <center>
+    <button class="btn btn-default btn-lg btn-block"><a href="@Url.Action("Login")">LOG IN</a></button>
+    <button class="btn btn-default btn-lg btn-block"><a href="@Url.Action("Register")">REGISTER</a></button>
+    </center>
 
 }
-else
-{
-    <h2>Login</h2>
-    <hr />
-        <p>@Html.ActionLink("Log in", "Login")</p>
-        <p>@Html.ActionLink("Register", "Register")</p>
-    }

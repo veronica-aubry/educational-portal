@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Text.RegularExpressions;
+using MeriEducation.Models;
 
 namespace MeriEducation.Models
 {
@@ -50,8 +51,17 @@ namespace MeriEducation.Models
 
                 var formattedSynonyms = rgx.Replace(list.list.synonyms, replacer);
                 formattedSynonyms = formattedSynonyms.Replace("similar term,", "").Replace("related term,", "").Replace("antonym,", "");
-                Console.WriteLine(formattedSynonyms);
-                synonyms.Add(formattedSynonyms);
+                var synonymString = formattedSynonyms.ToString();
+                var finalFormat = synonymString.Split(',');
+                Console.WriteLine(finalFormat);
+                foreach (var synonym in finalFormat)
+                {
+                    if (!string.IsNullOrWhiteSpace(synonym))
+                    {
+                        synonyms.Add(synonym);
+
+                    }
+                }
             }
 
             formattedMatches.Add(VocabWord, synonyms);

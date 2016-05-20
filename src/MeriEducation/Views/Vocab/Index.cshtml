@@ -1,14 +1,17 @@
-﻿@model List<MeriEducation.Models.VocabWordList>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<MeriEducation.Models.VocabWordList>
 
 
 @foreach (var list in Model)
 {
-    <p>@list.Word1</p>
-    <p>@list.Word2</p>
-    <p>@list.Word3</p>
-    <p>@list.Word4</p>
+    <p>List @list.WordListId</p>
+    <p>@list.Word1, @list.Word2, @list.Word3, @list.Word4</p>
 
-    <p>@Html.ActionLink("Take Test", "GetMatches", list)</p>
+    <p>@Html.ActionLink("Play the Synonym Game", "GetMatches", list)</p>
+    <hr/>
 
 }
 

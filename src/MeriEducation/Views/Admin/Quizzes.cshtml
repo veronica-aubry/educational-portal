@@ -4,48 +4,25 @@
 
 @model IEnumerable<MeriEducation.Models.Quiz>
 
+<button class="btn btn-default btn-lg"><a href=@Url.Action("Create", "Admin")>Create a Quiz</a></button>
 
-    <h2>Quizes by grade level</h2>
 
-    <h1>7th Grade</h1>
-    <ul>
-        @foreach (var listItem in Model)
-        {
-            @if (listItem.Grade == 7)
+@for (int i = 1; i < 11; i++)
+{
+    <h3>Grade @i</h3>
+
+            @foreach (var listItem in Model)
             {
-                <li>
-                    <a href=@Url.Action("AddQuestion", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
-                    @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
-                    {
-                        <input type="submit" value="Delete" />
-                    }
-                </li>
+                @if (listItem.Grade == i)
+                {
+                        <a href=@Url.Action("AddQuestion", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
+                        @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
+                        {
+                            <input type="submit" value="Delete" />
+                        }
+                }
             }
+}
 
-        }
-    </ul>
 
-    <h1>8th Grade</h1>
-    <ul>
-        @foreach (var listItem in Model)
-        {
-            @if (listItem.Grade == 8)
-            {
-                <li>
-                    <a href=@Url.Action("AddQuestion", "Admin", new { id = @listItem.QuizId })><span>@listItem.Name</span></a>
-                    @using (Html.BeginForm("Delete", "Admin", new { id = listItem.QuizId }))
-                    {
-                        <input type="submit" value="Delete" />
-                    }
-                </li>
-            }
-
-        }
-    </ul>
-   
-
-    <h3> Create a Quiz</h3>
-    @Html.ActionLink("Create", "Create")
-
-    <p>@Html.ActionLink("Back to Admin Portal", "Index")</p>
 

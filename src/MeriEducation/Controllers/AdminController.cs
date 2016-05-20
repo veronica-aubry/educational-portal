@@ -25,6 +25,12 @@ namespace MeriEducation.Controllers
             _db = db;
         }
 
+        //public AdminController()
+        //{
+        //    var user = _userManager.FindByIdAsync(User.GetUserId());
+        //    ViewBag.User = user;
+        //}
+
 
         public async Task<IActionResult> Index()
         {
@@ -44,6 +50,22 @@ namespace MeriEducation.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult Create(AddQuizViewModel model)
+        {
+            var quiz = new Quiz
+            {
+                Name = model.Name,
+                Grade = model.Grade
+            };
+            _db.Quizzes.Add(quiz);
+            _db.SaveChanges();
+            return RedirectToAction("AddQuestion", new { id = quiz.QuizId });
+
+        }
+
 
 
         public ActionResult AddQuestion(int id)
