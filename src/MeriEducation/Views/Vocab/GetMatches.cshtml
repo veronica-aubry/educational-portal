@@ -4,7 +4,9 @@
 <script type="text/javascript" src="~/js/scripts.js"></script>
 <link rel="stylesheet" type="text/css" href="~/css/styles.css">
 
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 @model MeriEducation.ViewModels.VocabTestViewModel
 
@@ -26,24 +28,26 @@
          }
 
          <hr />
+         <h2>Drag the synonyms to the correct vocab word and press CHECK!</h2>
 
          <div class="dropzone" id="@Model.VocabWords.Word1">
-             <p>@Model.VocabWords.Word1</p>
+             <h3>@Model.VocabWords.Word1</h3>
          </div>
 
           
              <div class="dropzone" id="@Model.VocabWords.Word2">
-                 <p>@Model.VocabWords.Word2</p>
+                 <h3>@Model.VocabWords.Word2</h3>
              </div>
 
              <div class="dropzone" id="@Model.VocabWords.Word3">
-                 <p>@Model.VocabWords.Word3</p>
+                 <h3>@Model.VocabWords.Word3</h3>
              </div>
 
              <div class="dropzone" id="@Model.VocabWords.Word4">
-                 <p>@Model.VocabWords.Word4</p>
+                 <h3>@Model.VocabWords.Word4</h3>
              </div>
+        
          </div>
      </div>
-<button>Check Answers</button>
+<button type="button" class="btn btn-primary btn-lg btn-block">Check Answers</button>
 

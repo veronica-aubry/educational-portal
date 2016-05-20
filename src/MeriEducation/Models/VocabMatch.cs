@@ -56,7 +56,11 @@ namespace MeriEducation.Models
                 Console.WriteLine(finalFormat);
                 foreach (var synonym in finalFormat)
                 {
-                    synonyms.Add(synonym);
+                    if (!string.IsNullOrWhiteSpace(synonym))
+                    {
+                        synonyms.Add(synonym);
+
+                    }
                 }
             }
 
