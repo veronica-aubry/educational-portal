@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using MeriEducation.Models;
+using MeriEducation.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc.Rendering;
 using System.Security.Claims;
@@ -43,5 +44,65 @@ namespace MeriEducation.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index", "Account");
         }
+
+        public IActionResult Store()
+        {
+            var allHair = _db.Hairs.ToList();
+            var allOutfits = _db.Outfits.ToList();
+            var model = new StoreViewModel
+            {
+                AllHair = allHair,
+                AllOutfits = allOutfits
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> Buy(int id, string type)
+        {
+            var user = await _userManager.FindByIdAsync(User.GetUserId());
+            var avatar = _db.Avatars.FirstOrDefault(ava => ava.AvatarId == user.AvatarId);
+
+
+
+            if (type == "Hairs")
+            {
+                var item = _db.Hairs.FirstOrDefault(hair => hair.HairId == id);
+                if (user.Points >= item.Price)
+                {
+                    avatar.HairId = id;
+                    user.HairId = id;
+                    user.Points = (user.Points - item.Price);
+                    _db.SaveChanges();
+                    var model = "success";
+                    return View("BuyResult", model);
+                } else
+                {
+                    var model = "fail";
+                    return View("BuyResult", model); 
+                }
+           
+            }
+            else
+            {
+                var item = _db.Outfits.FirstOrDefault(outfit => outfit.OutfitId == id);
+                if (user.Points >= item.Price)
+                {
+                    avatar.OutfitId = id;
+                    user.OutfitId = id;
+                    user.Points = (user.Points - item.Price);
+                    _db.SaveChanges();
+                    var model = "success";
+                    return View("BuyResult", model);
+                }
+                else
+                {
+                    var model = "fail";
+                    return View("BuyResult", model);
+                }
+
+            }
+
+        }
+
     }
 }

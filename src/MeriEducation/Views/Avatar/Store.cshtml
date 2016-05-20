@@ -1,0 +1,38 @@
+﻿    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+@model MeriEducation.ViewModels.StoreViewModel
+
+<h3>Hair</h3>
+
+<div class="row">
+
+@foreach (var hair in Model.AllHair)
+{
+    <div class="col-sm-3">
+        <img src="~/images/hair/@(hair.HairId).png" /><br />
+        @hair.Name<br />
+        @hair.Price <br />
+        <a href="@Url.Action("Buy", "Avatar", new {id = hair.HairId, type = "Hairs"})">Buy</a>
+        </div>
+}
+
+</div>
+
+<h3>Outfits</h3>
+<div class="row">
+
+@foreach (var outfit in Model.AllOutfits)
+{
+    <div class="col-sm-3">
+    <img src="~/images/outfit/@(outfit.OutfitId).png" /><br />
+    @outfit.Name<br />
+    @outfit.Price <br />
+ 
+    <a href="@Url.Action("Buy", "Avatar",  new {id = outfit.OutfitId, type = "Outfits"})">Buy</a>
+    </div>
+}
+
+</div>
