@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.User.FirstName</h1>
+<h1>@Model.User.FirstName @Model.User.LastName</h1>
 
 @if (Model.UserAvatar != null)
 {
